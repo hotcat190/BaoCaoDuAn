@@ -1,7 +1,3 @@
-// #import "@preview/alexandria:0.2.2": *
-// #show: alexandria(read: path => read(path))
-// #load-bibliography("bibliography.yml")
-
 #set page(
   paper: "a4",
   margin: (top: 2.5cm, bottom: 3cm, left: 3cm, right: 2cm)
@@ -18,48 +14,42 @@
 )
 #set block(spacing: 6pt)
 
-#include "cover_page.typ"
+#include "frontmatter/cover_page.typ"
 #pagebreak()
-#include "lời_cảm_ơn.typ"
+#include "frontmatter/loi_cam_on.typ"
 #pagebreak()
-#include "lời_cam_đoan.typ"
+#include "frontmatter/loi_cam_doan.typ"
 #pagebreak()
+#include "frontmatter/tom_tat.typ"
 
-#include "tóm_tắt.typ"
 
 #pagebreak()
-
 #[
   #show heading: set align(center)
   #heading(numbering: none, outlined: false)[Mục lục]
   #outline(title: none)
 ]
-
 #pagebreak()
-
 #[
   #show heading: set align(center)
   #heading(numbering: none)[Danh mục hình ảnh]
   #outline(title: none, target: figure.where(kind: image))
 ]
-
 #pagebreak()
-
 #[
   #show heading: set align(center)
   #heading(numbering: none)[Danh mục bảng biểu]
   #outline(title: none, target: figure.where(kind: table))
 ]
-
 #pagebreak()
-
 #[
   #show heading: set align(center)
   #heading(numbering: none)[Danh mục các từ viết tắt]
   #outline(title: none, target: figure.where(kind: table))
 ]
-
 #pagebreak()
+
+
 #set page(numbering: "1", number-align: center + bottom)
 #include "mở_đầu.typ"
 #link(<bib-phan-dinh-dieu>)[[1]] <cite-phan-dinh-dieu>
@@ -69,29 +59,3 @@
 *Tiếng Việt*
 
 #link(<cite-phan-dinh-dieu>)[\[1\]] Phan Đình Diệu, _Lý thuyết về độ phức tạp tính toán_, Nhà xuất bản Đại học Quốc gia Hà Nội, Hà Nội, 1999, tr. 15-25. <bib-phan-dinh-dieu>
-// #context {
-//   // 2. Lấy toàn bộ danh sách các tài liệu đã được cite trong bài
-//   let (references: bib-refs, ..bib-info) = get-bibliography()
-
-//   // 3. Render danh mục Tiếng Việt
-//   strong[Tiếng Việt]
-//   render-bibliography(
-//     title: none,
-//     (
-//       // Lọc các tài liệu có key bắt đầu bằng "vi-"
-//       references: bib-refs.filter(ref => ref.key.starts-with("vi-")),
-//       ..bib-info
-//     )
-//   )
-
-//   // 4. Render danh mục Tiếng Anh
-//   strong[Tiếng Anh]
-//   render-bibliography(
-//     title: none,
-//     (
-//       // Lọc các tài liệu có key bắt đầu bằng "en-"
-//       references: bib-refs.filter(ref => ref.key.starts-with("en-")),
-//       ..bib-info
-//     )
-//   )
-// }
