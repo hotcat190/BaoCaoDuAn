@@ -1,3 +1,4 @@
-#align(center,[
-  #text(18pt)[*Lời cảm ơn*]
-])
+#align(center)[#heading(numbering: none)[Lời cảm ơn]]
+Lời đầu tiên, chúng em xin được gửi lời cảm ơn sâu sắc đến thầy TS. Lê Hồng Hải, người đã trực tiếp dẫn dắt và hướng dẫn nhóm trong suốt quá trình thực hiện dự án "Phát triển ứng dụng đọc truyện tranh hỗ trợ đa ngôn ngữ bằng việc ứng dụng AI tự động dịch". Tuy quá trình nghiên cứu và phát triển hệ thống gặp không ít khó khăn về mặt công nghệ, thuật toán cũng như tối ưu hóa dữ liệu, nhưng chính những định hướng chuyên môn quý báu và sự hỗ trợ tận tình của thầy đã giúp chúng em hoàn thành tốt dự án này.
+
+Do kiến thức chuyên môn và kinh nghiệm thực tế của các thành viên trong nhóm còn nhiều hạn chế, sản phẩm cũng như báo cáo dự án chắc chắn không tránh khỏi những thiếu sót. Chúng em rất mong nhận được những ý kiến đóng góp, nhận xét từ các Thầy, Cô để nhóm có thể hoàn thiện đề tài tốt hơn, đồng thời biến đây thành tiền đề vững chắc và hành trang quý báu cho quá trình học tập, công tác sau này.

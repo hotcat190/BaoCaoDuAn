@@ -23,9 +23,8 @@
   }
 )
 #align(center, [
-  #text(14pt)[*ĐẠI HỌC QUỐC GIA HÀ NỘI*] \
-  #v(4pt)
-  #text(14pt)[*TRƯỜNG ĐẠI HỌC CÔNG NGHỆ*] \
+  #text(12pt)[*ĐẠI HỌC QUỐC GIA HÀ NỘI*] \  
+  #text(12pt)[*TRƯỜNG ĐẠI HỌC CÔNG NGHỆ*] \
 ]) 
 #v(25pt)
 #align(center)[
@@ -38,29 +37,29 @@
   #text(16pt)[*Ngành: Công nghệ thông tin*] \
   #v(16pt)
   
-  #text(size: 16pt)[*PHÁT TRIỂN ỨNG DỤNG ĐỌC TRUYỆN TRANH HỖ TRỢ ĐA NGÔN NGỮ BẰNG VIỆC ỨNG DỤNG AI TỰ ĐỘNG DỊCH*
-]
-
+  #block(width: 90%)[
+    #text(size: 18pt)[*PHÁT TRIỂN ỨNG DỤNG ĐỌC TRUYỆN TRANH HỖ TRỢ ĐA NGÔN NGỮ  BẰNG VIỆC ỨNG DỤNG AI TỰ ĐỘNG DỊCH*]
+  ]
 ])
-#v(10pt)
+#v(18pt)
 #align(center)[
-  #text(size: 16pt)[*Giảng viên hướng dẫn: TS. Lê Hồng Hải*]
+  #text(size: 14pt)[*Giảng viên hướng dẫn: TS. Lê Hồng Hải*]
 
   #v(10pt)
 
-  #text(size: 16pt)[*Sinh viên thực hiện: Nhóm 7*]
+  #text(size: 14pt)[*Sinh viên thực hiện: Nhóm 7*]
   #v(2pt)
 
-  #text(size: 16pt)[Nguyễn Đình Nguyên - 22021141] \
+  #text(size: 14pt)[*Nguyễn Đình Nguyên - 22021141*] \
   #v(4pt)
-  #text(size: 16pt)[Hoàng Lê Kim Long - 22021216] \
+  #text(size: 14pt)[*Hoàng Lê Kim Long - 22021216*] \
   
-  #text(size: 16pt)[Hoàng Công Hữu - 22021178]
+  #text(size: 14pt)[*Hoàng Công Hữu - 22021178*]
   #v(5pt)
 
-  #text(size: 16pt)[*Lớp: K67-IT1*]
+  #text(size: 14pt)[*Lớp: K67-IT1*]
 ]
 #v(1fr)
 #align(center, {
-  text(size: 14pt)[*HÀ NỘI - 2026*]
+  text(size: 12pt)[*HÀ NỘI - 2026*]
 })
