@@ -4,6 +4,14 @@
 )
 #set text(font: "SVN-Times New Roman", lang: "vi", size: 13pt)
 #show link: underline
+#show outline.entry.where(level: 1): set text(weight: "bold")
+#set par(
+  justify: true,
+  first-line-indent: (amount: 1cm, all: true),
+  leading: 0.5em
+)
+#set block(spacing: 6pt)
+
 #set heading(numbering: (..vị_trí) => {
   let các_cấp = vị_trí.pos()
   if các_cấp.len() == 1 {
@@ -17,13 +25,18 @@
   #v(6pt)
 ]
 #show heading.where(level: 1): set text(size: 18pt)
-#show outline.entry.where(level: 1): set text(weight: "bold")
-#set par(
-  justify: true,
-  first-line-indent: (amount: 1cm, all: true),
-  leading: 0.5em
-)
-#set block(spacing: 6pt)
+
+#show table.header: set align(center + horizon)
+#set figure(numbering: (..vị_trí) => {
+  let các_cấp = counter(heading).get()
+  let chương = if các_cấp.len() > 0 { các_cấp.at(0) } else { 1 }
+  numbering("1.1", chương, ..vị_trí)
+})
+#show heading.where(level: 1): it => {
+  counter(figure.where(kind: table)).update(0)
+  counter(figure.where(kind: image)).update(0)
+  it
+}
 
 #include "frontmatter/cover_page.typ"
 #pagebreak()
@@ -47,5 +60,10 @@
 #include "contents/mo_dau.typ"
 
 #pagebreak()
+
+#include "contents/chuong1.typ"
+
+#pagebreak()
 #heading(numbering: none)[Tài liệu tham khảo]
+#bibliography("bibliography.yml", title: none)
 

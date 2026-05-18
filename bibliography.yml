@@ -11,3 +11,56 @@ en-researchandmarkets-webtoons-2026:
   author: Research and Markets
   date: 2026
   url: "https://researchandmarkets.com"
+
+manga-109s:
+  type: Web
+  title: "Manga 109s Dataset"
+  author: "Hal Lab UTokyo"
+  date: 2026
+  url: "https://huggingface.co/datasets/hal-utokyo/Manga109-s"
+
+
+multimedia_aizawa_2020:
+  type: article
+  title: "Building a Manga Dataset \"Manga109\" with Annotations for Multimedia Applications"
+  author:
+    - "Kiyoharu Aizawa"
+    - "Azuma Fujimoto"
+    - "Atsushi Otsubo"
+    - "Toru Ogawa"
+    - "Yusuke Matsui"
+    - "Koki Tsubota"
+    - "Hikaru Ikuta"
+  date: 2020
+  publication: "IEEE MultiMedia"
+  volume: 27
+  issue: 2
+  pages: "8-18"
+  doi: "10.1109/mmul.2020.2987895"
+
+mtap_matsui_2017:
+  type: article
+  title: "Sketch-based Manga Retrieval using Manga109 Dataset"
+  author:
+    - "Yusuke Matsui"
+    - "Kota Ito"
+    - "Yuji Aramaki"
+    - "Azuma Fujimoto"
+    - "Toru Ogawa"
+    - "Toshihiko Yamasaki"
+    - "Kiyoharu Aizawa"
+  date: 2017
+  publication: "Multimedia Tools and Applications"
+  volume: 76
+  issue: 20
+  pages: "21811-21838"
+  doi: "10.1007/s11042-016-4020-z"
+
+webtoon-screenshot:
+  type: Web
+  title: "어느 날 해츨링이 되었다"
+  author:
+    - "판테라 (Pantela)"
+    - "리피아 (Lipia)"
+    - "햄스끼 (Haemseukki)"
+  url: https://comic.naver.com/webtoon/list?titleId=850266
