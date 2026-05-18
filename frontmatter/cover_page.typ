@@ -38,7 +38,7 @@
   #v(16pt)
   
   #block(width: 90%)[
-    #text(size: 18pt)[*PHÁT TRIỂN ỨNG DỤNG ĐỌC TRUYỆN TRANH HỖ TRỢ ĐA NGÔN NGỮ  BẰNG VIỆC ỨNG DỤNG AI TỰ ĐỘNG DỊCH*]
+    #text(size: 18pt)[*PHÁT TRIỂN ỨNG DỤNG ĐỌC TRUYỆN TRANH HỖ TRỢ ĐA NGÔN NGỮ BẰNG VIỆC ỨNG DỤNG AI TỰ ĐỘNG DỊCH*]
   ]
 ])
 #v(18pt)

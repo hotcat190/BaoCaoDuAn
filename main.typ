@@ -2,9 +2,20 @@
   paper: "a4",
   margin: (top: 2.5cm, bottom: 3cm, left: 3cm, right: 2cm)
 )
-#show link: underline
-#set heading(numbering: "1.1.")
 #set text(font: "SVN-Times New Roman", lang: "vi", size: 13pt)
+#show link: underline
+#set heading(numbering: (..vị_trí) => {
+  let các_cấp = vị_trí.pos()
+  if các_cấp.len() == 1 {
+    return none
+  } else {
+    return numbering("1.1.", ..các_cấp.slice(1))
+  }
+})
+#show heading.where(level: 2): mục_lớn => [
+  #mục_lớn
+  #v(6pt)
+]
 #show heading.where(level: 1): set text(size: 18pt)
 #show outline.entry.where(level: 1): set text(weight: "bold")
 #set par(
@@ -22,40 +33,19 @@
 #pagebreak()
 #include "frontmatter/tom_tat.typ"
 
-
 #pagebreak()
-#[
-  #show heading: set align(center)
-  #heading(numbering: none, outlined: false)[Mục lục]
-  #outline(title: none)
-]
+#include "danh_muc/muc_luc.typ"
 #pagebreak()
-#[
-  #show heading: set align(center)
-  #heading(numbering: none)[Danh mục hình ảnh]
-  #outline(title: none, target: figure.where(kind: image))
-]
+#include "danh_muc/danh_muc_hinh_anh.typ"
 #pagebreak()
-#[
-  #show heading: set align(center)
-  #heading(numbering: none)[Danh mục bảng biểu]
-  #outline(title: none, target: figure.where(kind: table))
-]
+#include "danh_muc/danh_muc_bang_bieu.typ"
 #pagebreak()
-#[
-  #show heading: set align(center)
-  #heading(numbering: none)[Danh mục các từ viết tắt]
-  #outline(title: none, target: figure.where(kind: table))
-]
+#include "danh_muc/danh_muc_cac_tu_viet_tat.typ"
 #pagebreak()
-
 
 #set page(numbering: "1", number-align: center + bottom)
-#include "mở_đầu.typ"
-#link(<bib-phan-dinh-dieu>)[[1]] <cite-phan-dinh-dieu>
+#include "contents/mo_dau.typ"
 
 #pagebreak()
 #heading(numbering: none)[Tài liệu tham khảo]
-*Tiếng Việt*
 
-#link(<cite-phan-dinh-dieu>)[\[1\]] Phan Đình Diệu, _Lý thuyết về độ phức tạp tính toán_, Nhà xuất bản Đại học Quốc gia Hà Nội, Hà Nội, 1999, tr. 15-25. <bib-phan-dinh-dieu>
