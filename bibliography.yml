@@ -110,7 +110,7 @@ lama:
   title: "Resolution-robust Large Mask Inpainting with Fourier Convolutions (LaMa)"
   author: "Roman Suvorov and Elizaveta Logacheva and Anton Mashikhin and Anastasia Remizova and Arsenii Ashukha and Aleksei Alekseev and Ivan Klenitskiy and Denis Bakshandeev and Evgeny Burnaev and Victor Lempitsky"
   type: "web"
-  url: "https://github.com/advimman/lama"
+  url: "https://arxiv.org/abs/2109.07161"
   year: 2021
 
 gemini-flash-lite:
@@ -126,3 +126,59 @@ tesseract:
   type: "web"
   url: "https://github.com/tesseract-ocr/tesseract"
   year: 2018
+
+nextjs:
+  title: "Next.js Documentation: The React Framework for the Web"
+  author: "Vercel"
+  type: "web"
+  url: "https://nextjs.org"
+  year: 2026
+
+springboot:
+  title: "Spring Boot Reference Documentation"
+  author: "VMware Tanzu"
+  type: "web"
+  url: "https://spring.io/projects/spring-boot"
+  year: 2026
+
+fastapi:
+  title: "FastAPI Framework Documentation"
+  author: "Sebastián Ramírez"
+  type: "web"
+  url: "https://fastapi.tiangolo.com"
+  year: 2026
+
+postgresql:
+  title: "PostgreSQL 16 Database Management System Documentation"
+  author: "PostgreSQL Global Development Group"
+  type: "web"
+  url: "https://www.postgresql.org"
+  year: 2026
+
+minio:
+  title: "MinIO High-Performance Object Storage Documentation"
+  author: "MinIO Inc."
+  type: "web"
+  url: "https://min.io"
+  year: 2026
+
+elasticsearch:
+  title: "Elasticsearch: The Official Distributed Search and Analytics Engine"
+  author: "Elastic NV"
+  type: "web"
+  url: "https://www.elastic.co/elasticsearch"
+  year: 2026
+
+redis:
+  title: "Redis Documentation and Real-Time Data Platform"
+  author: "Redis In-Memory Database"
+  type: "web"
+  url: "https://redis.io"
+  year: 2026
+
+rabbitmq:
+  title: "RabbitMQ Server Documentation and AMQP Message Broker"
+  author: "Broadcom"
+  type: "web"
+  url: "https://www.rabbitmq.com"
+  year: 2026
