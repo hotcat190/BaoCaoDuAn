@@ -189,3 +189,10 @@ scanlation:
   type: "web"
   url: "https://vi.wikipedia.org/wiki/Scanlation"
   year: 2026
+
+use-case-table:
+  title: "Simple but useful: Use Case Tables"
+  author: "Florian Krämer"
+  type: "web"
+  year: 2024
+  url: "https://florian-kraemer.net/software-architecture/2024/02/28/Use-Case-Tables.html"

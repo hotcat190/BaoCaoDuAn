@@ -27,7 +27,7 @@ Dự án hướng tới việc thiết kế, xây dựng và triển khai một 
 == Phương pháp nghiên cứu
 Dự án kết hợp chặt chẽ giữa nghiên cứu lý thuyết và triển khai thực nghiệm:
 
-\- *Phương pháp nghiên cứu lý thuyết:* Khảo sát các công trình khoa học, tài liệu kỹ thuật liên quan đến xử lý ảnh, thị giác máy tính và xử lý ngôn ngữ tự nhiên; nghiên cứu kiến trúc hệ thống hướng dịch vụ (SOA) và cơ chế hàng chờ thông điệp bất đồng bộ để giải quyết bài toán hiệu năng hệ thống.
+\- *Phương pháp nghiên cứu lý thuyết:* Khảo sát các công trình khoa học, tài liệu kỹ thuật liên quan đến xử lý ảnh, thị giác máy tính và xử lý ngôn ngữ tự nhiên; nghiên cứu kiến trúc hệ thống hướng dịch vụ lai (Hybrid - SOA) và cơ chế hàng chờ thông điệp bất đồng bộ để giải quyết bài toán hiệu năng hệ thống.
 
 \- *Phương pháp thực nghiệm:* Cài đặt và tích hợp các mô hình pre-trained chuyên dụng; thực hiện cấu hình kết nối API của các mô hình ngôn ngữ lớn; tiến hành kiểm thử tải và đo lường thời gian phản hồi thực tế của tính năng tương tác AI.
 

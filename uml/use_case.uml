@@ -25,8 +25,6 @@ skinparam arrow {
     Thickness 1.5
 }
 
-left to right direction
-
 actor "Khách truy cập\n(Guest)" as Guest
 actor "Độc giả hệ thống\n(Registered User)" as User
 actor "Quản trị viên\n(Administrator)" as Admin
@@ -46,19 +44,31 @@ rectangle "Hệ thống Ứng dụng đọc truyện tranh tích hợp AI" {
     
     usecase UC09 as "UC_09: Quản lý danh mục và\nthông tin cấu trúc truyện"
     usecase UC10 as "UC_10: Tải lên chương mới và\nkích hoạt AI Pipeline"
+
+    UC01 -[hidden]down-> UC02
+    UC02 -[hidden]down-> UC03
+    UC03 -[hidden]down-> UC04
+    UC04 -[hidden]down-> UC05
+    UC05 -[hidden]down-> UC06
+    UC06 -[hidden]down-> UC07
+    UC07 -[hidden]down-> UC08
+    UC08 -[hidden]down-> UC09
+    UC09 -[hidden]down-> UC10
 }
 
-Guest --> UC01
-Guest --> UC02
-Guest --> UC03
-Guest --> UC04
+Guest -up-> User
 
-User --> UC05
-User --> UC06
-User --> UC07
-User --> UC08
+Guest -right-> UC01
+Guest -right-> UC02
+Guest -right-> UC03
+Guest -right-> UC04
 
-Admin --> UC05
-Admin --> UC09
-Admin --> UC10
+User -right-> UC05
+User -right-> UC06
+User -right-> UC07
+User -right-> UC08
+
+Admin -left-> UC05
+Admin -left-> UC09
+Admin -left-> UC10
 @enduml

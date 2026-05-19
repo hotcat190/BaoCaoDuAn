@@ -1,4 +1,5 @@
 #let TTS_implemented = state("TTS_implemented", false)
+#let vertical_scroll_implemented = state("vertical_scroll_implemented", false)
 
 #let stt-counter = counter("table-stt")
 #show table: it => {
