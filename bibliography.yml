@@ -1,24 +1,9 @@
-en-polaris-manga-2026:
-  type: Web
-  title: "Global Manga Market Size, Share, Growth Analysis Report, 2026-2034"
-  author: Polaris Market Research
-  date: 2026
-  url: "https://www.polarismarketresearch.com/industry-analysis/manga-market"
-
-en-researchandmarkets-webtoons-2026:
-  type: Web
-  title: "Webtoons Market Size, Competitors, Trends & Forecast to 2030"
-  author: Research and Markets
-  date: 2026
-  url: "https://researchandmarkets.com"
-
 manga-109s:
   type: Web
   title: "Manga 109s Dataset"
   author: "Hal Lab UTokyo"
   date: 2026
   url: "https://huggingface.co/datasets/hal-utokyo/Manga109-s"
-
 
 multimedia_aizawa_2020:
   type: article
@@ -63,4 +48,81 @@ webtoon-screenshot:
     - "판테라 (Pantela)"
     - "리피아 (Lipia)"
     - "햄스끼 (Haemseukki)"
-  url: https://comic.naver.com/webtoon/list?titleId=850266
+  url: "https://comic.naver.com/webtoon/list?titleId=850266"
+
+mokuro:
+  title: "Mokuro: Read Japanese manga inside your browser with selectable text"
+  author: "Kha White"
+  type: "web"
+  url: "https://github.com/kha-white/mokuro"
+  year: 2022
+
+yomitan:
+  title: "Yomitan: A community-maintained pop-up dictionary extension for Japanese text"
+  author: "The Moe Way Community"
+  type: "web"
+  url: "https://github.com/themoeway/yomitan"
+  year: 2023
+
+mangatranslator:
+  title: "MangaTranslator: An automated manga translation pipeline using deep learning"
+  author: "Mean Grinch"
+  type: "web"
+  url: "https://github.com/meangrinch/MangaTranslator"
+  year: 2021
+
+manga-image-translator:
+  title: "Manga/Image Translator: Inpainting and text translation tool for comics"
+  author: "zyddnys"
+  type: "web"
+  url: "https://github.com/zyddnys/manga-image-translator"
+  year: 2021
+
+koharu:
+  title: "Koharu: Machine learning powered multilingual manga translator"
+  author: "mayocream"
+  type: "web"
+  url: "https://github.com/mayocream/koharu"
+  year: 2023
+
+comic-text-detector:
+  title: "Comic Text Detector: Deep learning based text box detection for comics"
+  author: "Kha White"
+  type: "web"
+  url: "https://github.com/kha-white/comic-text-detector"
+  year: 2022
+
+mangaocr:
+  title: "MangaOcr: Optical character recognition for Japanese manga text"
+  author: "Kha White"
+  type: "web"
+  url: "https://github.com/kha-white/manga-ocr"
+  year: 2021
+
+paddleocr:
+  title: "PaddleOCR: Ultra-lightweight OCR compiler and toolkit based on PaddlePaddle"
+  author: "PaddlePaddle Author Team"
+  type: "web"
+  url: "https://github.com/PaddlePaddle/PaddleOCR"
+  year: 2024
+
+lama:
+  title: "Resolution-robust Large Mask Inpainting with Fourier Convolutions (LaMa)"
+  author: "Roman Suvorov and Elizaveta Logacheva and Anton Mashikhin and Anastasia Remizova and Arsenii Ashukha and Aleksei Alekseev and Ivan Klenitskiy and Denis Bakshandeev and Evgeny Burnaev and Victor Lempitsky"
+  type: "web"
+  url: "https://github.com/advimman/lama"
+  year: 2021
+
+gemini-flash-lite:
+  title: "Gemini 3.1 Flash-Lite Model Documentation"
+  author: "Google Cloud"
+  type: "web"
+  url: "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-1-flash-lite"
+  year: 2025
+
+tesseract:
+  title: "Tesseract OCR: An open-source optical character recognition engine"
+  author: "Google"
+  type: "web"
+  url: "https://github.com/tesseract-ocr/tesseract"
+  year: 2018
