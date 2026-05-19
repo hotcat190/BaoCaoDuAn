@@ -1,0 +1,64 @@
+@startuml
+skinparam backgroundcolor #ffffff
+skinparam roundcorner 8
+skinparam packageStyle rect
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 12
+
+skinparam actor {
+    BorderColor #34495e
+    BackgroundColor #f0f4f8
+    FontColor #2c3e50
+    FontSize 13
+    FontStyle bold
+}
+
+skinparam usecase {
+    BorderColor #4a6572
+    BackgroundColor #f0f4f8
+    FontColor #2c3e50
+    FontSize 11
+}
+
+skinparam arrow {
+    Color #34495e
+    Thickness 1.5
+}
+
+left to right direction
+
+actor "Khách truy cập\n(Guest)" as Guest
+actor "Độc giả hệ thống\n(Registered User)" as User
+actor "Quản trị viên\n(Administrator)" as Admin
+
+User -up-|> Guest
+
+rectangle "Hệ thống Ứng dụng đọc truyện tranh tích hợp AI" {
+    usecase UC01 as "UC_01: Xem danh sách và\ntìm kiếm truyện"
+    usecase UC02 as "UC_02: Đọc truyện\n(Comic Viewer)"
+    usecase UC03 as "UC_03: Tra từ vựng qua ảnh\n(Tap-to-Translate)"
+    usecase UC04 as "UC_04: Đăng ký tài khoản mới"
+    
+    usecase UC05 as "UC_05: Đăng nhập và Đăng xuất"
+    usecase UC06 as "UC_06: Quản lý tủ sách\ncá nhân (Bookmark)"
+    usecase UC07 as "UC_07: Lưu vị trí đọc tự động\n(Reading History)"
+    usecase UC08 as "UC_08: Gửi bình luận và\ntương tác cộng đồng"
+    
+    usecase UC09 as "UC_09: Quản lý danh mục và\nthông tin cấu trúc truyện"
+    usecase UC10 as "UC_10: Tải lên chương mới và\nkích hoạt AI Pipeline"
+}
+
+Guest --> UC01
+Guest --> UC02
+Guest --> UC03
+Guest --> UC04
+
+User --> UC05
+User --> UC06
+User --> UC07
+User --> UC08
+
+Admin --> UC05
+Admin --> UC09
+Admin --> UC10
+@enduml

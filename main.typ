@@ -14,7 +14,7 @@
 
 #set heading(numbering: (..vị_trí) => {
   let các_cấp = vị_trí.pos()
-  let là_chương = counter("is-chương").get().at(0) == 1
+  let là_chương = counter("is-chương").get().at(0) >= 1
   if các_cấp.len() == 1 {
     return none
   } else {
@@ -66,10 +66,11 @@
 #include "contents/mo_dau.typ"
 
 #pagebreak()
-
 #include "contents/chuong1.typ"
-
 #pagebreak()
+#include "contents/chuong2.typ"
+#pagebreak()
+
 #heading(numbering: none)[Tài liệu tham khảo]
 #bibliography("bibliography.yml", title: none)
 

@@ -108,7 +108,7 @@ Hệ thống đề xuất sử dụng kết hợp các mô hình học sâu chuy
 === Nhận dạng ký tự quang học (OCR) trên cấu trúc hình ảnh phức tạp
 Đối với văn bản nằm trong truyện tranh, các giải pháp OCR thông thường (như Tesseract @tesseract) thường cho kết quả rất kém do chữ có nhiều định dạng nghệ thuật, đổ bóng và nền ảnh phức tạp. Do đó, hệ thống phân tách thành hai nhánh xử lý:
 
-\- Với định dạng Manga (chữ viết dọc, font chữ Nhật đặc thù): Sử dụng mô hình `comic-text-detector` @comic-text-detector để định vị chính xác tọa độ các bounding box của khung thoại, kết hợp với `MangaOcr` @mangaocr – mô hình End-to-End chuyên biệt được tối ưu cho việc nhận diện chữ tiếng Nhật viết dọc.
+\- Với định dạng Manga (chữ viết dọc, font chữ Nhật đặc thù): Sử dụng mô hình `comic-text-detector` @comic-text-detector để định vị chính xác tọa độ các bounding box của khung thoại, kết hợp với `MangaOcr` @mangaocr - mô hình End-to-End chuyên biệt được tối ưu cho việc nhận diện chữ tiếng Nhật viết dọc.
 
 \- Với định dạng Webtoon (chữ viết ngang, nền màu phức tạp): Sử dụng mô hình `PaddleOCR-v5` @paddleocr nhờ khả năng nhận diện chữ đa hướng (Rotated Text Detection) mạnh mẽ và tốc độ trích xuất chuỗi ký tự tối ưu trên các dòng máy chủ hiệu năng trung bình.
 
