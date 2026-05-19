@@ -1,6 +1,7 @@
 #import "/global_vars.typ": TTS_implemented
 
 #heading(numbering: none, outlined: true)[Mở đầu]
+#counter("is-chương").update(0)
 
 == Đặt vấn đề
 Trong kỷ nguyên số hóa, truyện tranh kỹ thuật số đã trở thành một nền tảng giải trí và văn hóa có sức ảnh hưởng toàn cầu, thu hút hàng triệu độc giả ở mọi lứa tuổi. Tuy nhiên, rào cản ngôn ngữ vẫn là một thách thức lớn đối với những người yêu thích truyện tranh muốn tiếp cận sớm nhất các tác phẩm quốc tế hoặc có nhu cầu sử dụng truyện tranh như một công cụ hỗ trợ học ngoại ngữ tự nhiên. Phương pháp dịch thuật thủ công truyền thống thường tiêu tốn nhiều thời gian, phụ thuộc lớn vào các nhóm dịch tự phát và không thể đáp ứng được tính cá nhân hóa trong việc tra cứu tức thì của người đọc.

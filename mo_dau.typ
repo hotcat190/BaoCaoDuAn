@@ -1,1 +1,0 @@
-#align(center)[#heading(numbering: none)[Mở đầu]]

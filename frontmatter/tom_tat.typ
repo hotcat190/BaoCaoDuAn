@@ -3,7 +3,7 @@ Hiện nay, nhu cầu tiếp cận các tác phẩm truyện tranh quốc tế n
 
 Để giải quyết vấn đề này, dự án tập trung phát triển một ứng dụng đọc truyện tranh đa ngôn ngữ với điểm nhấn cốt lõi là tính năng tương tác trực tiếp. Hệ thống tích hợp một luồng xử lý AI tự động và khép kín - bao gồm nhận diện vùng văn bản (text detection), khôi phục nền ảnh (inpainting) và dịch thuật sát ngữ cảnh bằng các mô hình ngôn ngữ lớn (LLM). Thay vì phải chuyển đổi qua lại giữa các ứng dụng bên ngoài, người đọc có thể trực tiếp nhấn vào từng từ vựng hoặc bong bóng thoại để xem bản dịch ngay trên giao diện đọc.
 
-Giải pháp này loại bỏ hoàn toàn các thao tác dư thừa, giúp độc giả vượt qua rào cản ngôn ngữ để thưởng thức trọn vẹn tác phẩm gốc, biến quá trình giải trí trở thành một môi trường trau dồi ngoại ngữ tự nhiên và hiệu quả.
+Giải pháp này loại bỏ hoàn toàn các thao tác dư thừa, giúp độc giả vượt qua rào cản ngôn ngữ để có thể thưởng thức trọn vẹn tác phẩm gốc, đồng thời biến quá trình giải trí trở thành một môi trường trau dồi ngoại ngữ tự nhiên và hiệu quả.
 
 #[
   #set par(first-line-indent: 0pt)

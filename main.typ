@@ -14,10 +14,16 @@
 
 #set heading(numbering: (..vị_trí) => {
   let các_cấp = vị_trí.pos()
+  let là_chương = counter("is-chương").get().at(0) == 1
   if các_cấp.len() == 1 {
     return none
   } else {
-    return numbering("1.1.", ..các_cấp.slice(1))
+    if là_chương {
+      let chỉ_số_chương = counter(heading).get().at(0)
+      return numbering("1.1.", chỉ_số_chương, ..các_cấp.slice(1))
+    } else {
+      return numbering("1.", ..các_cấp.slice(1))
+    }
   }
 })
 #show heading.where(level: 2): mục_lớn => [
