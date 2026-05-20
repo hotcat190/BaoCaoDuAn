@@ -1,0 +1,9 @@
+title Luồng Xác thực Nội bộ (Local Authentication)
+
+autonumber
+
+Client->Backend: POST /auth/login (Email, Password)
+Backend->Database: findByEmail(email)
+Database-->Backend: Trả về bản ghi User (Password_hash)
+Backend->Backend: Đối chiếu BCrypt & Sinh JWT Token
+Backend-->Client: HTTP 200 OK (Trả về JWT trong Response Body)

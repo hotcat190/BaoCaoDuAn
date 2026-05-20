@@ -1,0 +1,64 @@
+@startuml
+skinparam TypeConstraintSpacing 0
+skinparam ComponentStyle uml2
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #333333
+skinparam ArrowColor #333333
+
+title Biểu đồ hoạt động của Đường ống AI Worker Pipeline (Asynchronous AI Processing)
+
+start
+
+:Nhận Job Payload từ RabbitMQ;
+:Tải ảnh truyện gốc từ MinIO về thư mục tạm;
+:Khởi tạo pipeline;
+
+if (Kiểm tra comic_type?) then (manga)
+    partition "Nhánh xử lý Manga" {
+        :Nhận diện và cắt các Panel;
+        :Phát hiện hộp thoại bằng `TextDetector`;
+        :Sắp xếp thứ tự bong bóng thoại theo 
+logic ô tranh và thuật toán XY Cut;
+        :Duyệt qua từng khối hộp thoại được phát hiện;
+        :Kiểm tra vùng biên chữ hợp lệ;
+        :Vẽ đường viền biên để tạo mặt nạ nhị phân;
+        :Trích xuất và crop ảnh nhỏ chứa bong bóng thoại;
+        :OCR tiếng Nhật;
+    }
+else (webtoon)
+    partition "Nhánh xử lý Webtoon" {
+        :Quét toàn bộ bề mặt ảnh bằng PaddleOCR;
+        :Tạo mặt nạ nhị phân lấp đầy khối chữ;
+        :Nhóm các đoạn chữ rời rạc thành khối 
+hội thoại dựa trên khoảng cách pixel;
+    }
+endif
+
+partition "Xóa chữ khôi phục nền" {
+    :Chuyển đổi mặt nạ chữ sang định dạng ảnh PIL;
+    :Chạy mô hình LaMa xóa chữ gốc và bù đắp pixel nền sạch;
+    :Tải ảnh đã xóa chữ (`cleaned_img`) lên MinIO;
+}
+
+if (Kiểm tra cờ skip_translate?) then (False)
+    partition "Dịch thuật" {
+        :Tạo ảnh State-of-Mark (SoM) để chuẩn bị cho LLM;
+        :Chuẩn bị prompt cho LLM;
+        :Gọi API đến mô hình LLM (Gemini);
+        :Duyệt kết quả và tải tệp trans_{lang}.json lên MinIO;
+    }
+else (True)
+    :Bỏ qua tiến trình dịch thuật ngữ cảnh;
+    :Khởi tạo mảng dịch với trạng thái trống;
+endif
+
+partition "Khâu Tập kết và Đồng bộ Dữ liệu" {
+    :Đóng gói tệp `original_metadata`;
+    :Tải tệp tin `original.json` lên MinIO Object Storage;
+    :Cấu trúc gói Payload phản hồi kết quả 
+trạng thái thành công (`COMPLETED`);
+    :HTTP POST gửi dữ liệu Webhook phản hồi về Core Backend;
+}
+
+stop
+@enduml

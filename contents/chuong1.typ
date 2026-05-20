@@ -82,7 +82,7 @@ Trong những năm gần đây, sự bùng nổ của các mô hình học sâu 
   + *Nhược điểm:* Phụ thuộc hoàn toàn vào môi trường trình duyệt máy tính, không tự động dịch nghĩa toàn bộ câu mà chỉ hỗ trợ tra từ đơn hoặc cụm từ, và không tối ưu cho định dạng cuộn dọc của Webtoon.
 ]
 
-=== Đường ống dịch thuật tự động khép kín (MangaTranslator và Manga/Image Translator)
+=== Các đường ống dịch thuật tự động khép kín (MangaTranslator và Manga/Image Translator)
 Đây là các hệ thống xây dựng Pipeline toàn diện từ khâu đầu vào đến đầu ra. Quy trình hoạt động bao gồm: Phát hiện chữ $arrow.r$ Nhận diện ký tự quang học (OCR) $arrow.r$ Đưa qua API dịch thuật (Google Translate, DeepL) $arrow.r$ Xóa chữ cũ bằng thuật thuật toán Inpainting $arrow.r$ Vẽ chữ đã dịch (Typesetting) đè lên vùng ảnh sạch @mangatranslator @manga-image-translator.
 #v(3pt)
 #pad(left: 1cm)[
@@ -120,8 +120,6 @@ Thay vì sử dụng các công cụ dịch thuật theo từng dòng thô sơ, 
 
 //1.4.
 == Tổng quan về các công cụ và framework sử dụng
-
-Để hiện thực hóa đường ống công nghệ phức tạp từ khâu xử lý AI đến giao diện tương tác người dùng, hệ thống được phân rã thành các dịch vụ độc lập, sử dụng các framework tối ưu nhất cho từng tác vụ:
 
 \- *Next.js (Frontend Ecosystem):* Framework phát triển phía Client dựa trên React, hỗ trợ cơ chế render phía máy chủ (SSR/ISR). Đây là lựa chọn cốt lõi để tối ưu hóa tốc độ tải trang truyện, tối ưu SEO cho nền tảng và cung cấp trải nghiệm mượt mà cho Comic Viewer nhờ khả năng preload hình ảnh thông minh. @nextjs
 

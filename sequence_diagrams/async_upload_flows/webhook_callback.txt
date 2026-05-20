@@ -1,0 +1,19 @@
+title Luồng Cập nhật Kết quả Xử lý (Webhook Callback)
+
+autonumber
+
+AI Worker->Backend: POST /api/internal/webhook/processing-result (PipelineWebhookResponse JSON)
+Backend->Database: Truy vấn bản ghi ChapterPage dựa theo page_id
+Database-->Backend: Trả về thực thể dữ liệu ChapterPage tương ứng
+
+alt Trường hợp xử lý thành công (status == "COMPLETED")
+    Backend->Backend: Cập nhật liên kết URLs (cleaned_img, original_metadata) và đổi trạng thái thành COMPLETED
+    Backend->Database: Lưu thay đổi vào bảng 'pages'
+    Backend->Backend: Duyệt map translations để khởi tạo danh sách thực thể PageTranslation
+    Backend->Database: Lưu hàng loạt cấu trúc dịch thuật vào bảng 'page_translations'
+else Trường hợp xử lý thất bại (status == "FAILED")
+    Backend->Backend: Ghi nhận mã lỗi chi tiết vào file log và đổi trạng thái trang thành FAILED
+    Backend->Database: Lưu trạng thái lỗi vào bảng 'pages'
+end
+
+Backend-->AI Worker: HTTP 200 OK (Xác nhận hoàn tất đồng bộ)

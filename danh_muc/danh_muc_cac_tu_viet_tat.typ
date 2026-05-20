@@ -27,6 +27,7 @@
   stt(), [OCR], [Optical Character Recognition], [Nhận dạng ký tự quang học],
   stt(), [OAuth2], [Open Authorization 2.0], [Giao thức ủy quyền mở phiên bản 2.0],
   stt(), [RAM], [Random Access Memory], [Bộ nhớ truy cập ngẫu nhiên],
+  stt(), [RBAC], [Role-Based Access Control], [Cơ chế kiểm soát truy cập dựa trên vai trò],
   stt(), [REST], [Representational State Transfer], [Kiến trúc chuyển đổi trạng thái đại diện],
   stt(), [S3], [Simple Storage Service], [Dịch vụ lưu trữ đối tượng đơn giản (chuẩn API S3)],
   stt(), [SEO], [Search Engine Optimization], [Tối ưu hóa công cụ tìm kiếm],

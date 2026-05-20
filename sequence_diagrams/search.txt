@@ -1,0 +1,15 @@
+title Luồng tìm kiếm truyện tranh
+autonumber
+
+User->Frontend: Nhập từ khóa tìm kiếm
+Frontend->Backend: GET /comics/search/detail?keyword=...
+Backend->Redis_Cache: Cache Lookup
+
+alt Cache Hit
+    Redis_Cache-->Backend: Trả về dữ liệu tìm kiếm có sẵn
+else Cache Miss
+    Redis_Cache-->Backend: Không tìm thấy (Cache Miss)
+    Backend->ElasticSearch: Thực thi truy vấn DSL
+    ElasticSearch-->Backend: Trả về tập hợp tài liệu tài nguyên tương ứng
+    Backend->Redis_Cache: Lưu trữ kết quả mới vào bộ đệm 
+end

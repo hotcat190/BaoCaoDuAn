@@ -1,0 +1,22 @@
+title Luồng đăng ảnh của một chương truyện
+
+autonumber
+
+Client->Backend: POST /chapters/{chapterId}/pages (Tập hợp files ảnh, targetLangs)
+Backend->Database: Kiểm tra tính hợp lệ của chương truyện và bộ truyện
+Database-->Backend: Xác nhận dữ liệu hợp lệ
+Backend->Database: Kiểm tra tính duy nhất của số thứ tự trang ảnh
+Database-->Backend: Xác nhận không trùng lặp
+
+loop Xử lý tuần tự từng tệp ảnh tải lên
+    Backend->MinIO: Tải tệp ảnh nhị phân thô lên Object Storage
+    MinIO-->Backend: Trả về đường dẫn định danh tệp (objectName)
+    Backend->Database: Khởi tạo bản ghi ChapterPage với trạng thái PENDING (Đang chờ)
+    Database-->Backend: Lưu trữ thành công, trả về page_id
+
+    Backend->Backend: Đóng gói đối tượng PipelineJobRequest (page_id, image_url, webhook_url)
+    Backend->RabbitMQ: Đẩy thông điệp JSON vào manga-exchange thông qua routing-key
+    RabbitMQ-->Backend: Xác nhận thông điệp đã nằm an toàn trong hàng chờ manga-queue
+end
+
+Backend-->Client: HTTP 201 Created (Giải phóng luồng, trả về danh sách trang đang xử lý ngầm)

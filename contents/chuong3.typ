@@ -48,24 +48,24 @@ Hệ thống triển khai phương pháp Polyglot Persistence để đáp ứng 
 
 \- MinIO: Dịch vụ lưu trữ đối tượng (Object Storage) tương thích chuẩn S3 API, cung cấp giải pháp lưu trữ cho các tệp nhị phân kích thước lớn bao gồm hình ảnh trang truyện gốc (Raw images) và hình ảnh sau xử lý AI (Inpainted images).
 
-// #figure(
-//   image("images/architecture_diagram.png", width: 90%),
-//   caption: [Sơ đồ Kiến trúc tổng thể hệ thống (Hybrid SOA)],
-// ) <fig-architecture>
+#figure(
+  image("../images/Architecture-2026-05-20-180834.png"),
+  caption: [Sơ đồ kiến trúc tổng thể hệ thống],
+) <fig-architecture>
 
 == Thiết kế Cơ sở dữ liệu
 
 Hệ thống sử dụng hệ quản trị cơ sở dữ liệu quan hệ PostgreSQL để lưu trữ dữ liệu cấu trúc có tính toàn vẹn cao, thực thi các ràng buộc dữ liệu và phục vụ các tác vụ truy vấn nghiệp vụ cốt lõi.
 
-=== Biểu đồ Thực thể Liên kết (ERD)
+=== Biểu đồ thực thể liên kết (ERD)
 
 Mô hình dữ liệu logic của hệ thống được biểu diễn thông qua cấu trúc thực thể liên kết, xác định rõ các thực thể chính và các mối quan hệ ràng buộc giữa chúng trong hệ thống quản lý truyện tranh tích hợp xử lý dịch thuật.
 
-// #figure(
-//   image("images/erd_diagram.png", width: 85%),
-//   caption: [Biểu đồ thực thể liên kết (ERD) của hệ thống],
-// ) <fig-erd>
-
+#figure(
+  image("../images/ERD_2026-05-20-181355.png"),
+  caption: [Biểu đồ thực thể liên kết],
+) <fig-erd>
+#v(12pt)
 Các mối quan hệ logic giữa các thực thể trong hệ thống được quy định cụ thể:
 
 \- Một bản ghi trong bảng truyện tranh (Comics) liên kết với nhiều bản ghi trong bảng chương truyện (Chapters), thiết lập mối quan hệ một - nhiều (1 - N).
@@ -592,35 +592,102 @@ Sau khi hoàn tất chuỗi tiến trình xử lý hình ảnh và ngôn ngữ, 
 
 == Thiết kế các luồng xử lý nghiệp vụ cốt lõi (Core Business Workflows)
 
-  === Luồng Xác thực, Ủy quyền và Bảo mật Hệ thống
-  // Phân tích kiến trúc bảo mật hộp đen kết hợp giữa Local Auth và Google OAuth2.
-  // Sơ đồ Tuần tự (Sequence Diagram) mô tả luồng cấp phát mã thông báo JWT an toàn và phân quyền vai trò (RBAC) giữa Độc giả và Quản trị viên.
+=== Luồng Xác thực, Ủy quyền và Bảo mật Hệ thống
 
-  === Luồng Đồng bộ hóa và Truy vấn Dữ liệu Tìm kiếm Toàn văn (Search Engine Flow)
-  // Phân tích cách hệ thống đồng bộ dữ liệu phi tập trung từ PostgreSQL sang Elasticsearch khi có sự kiện thay đổi thông tin truyện.
-  // Luồng xử lý truy vấn tìm kiếm mờ (Fuzzy Search) đạt độ trễ thấp dưới góc nhìn tương tác Client - Backend.
+Hệ thống áp dụng kiến trúc bảo mật hỗn hợp (Hybrid Security Architecture), kết hợp song song cơ chế xác thực nội bộ (Local Authentication) thông qua định danh kết hợp mật khẩu và cơ chế ủy quyền phân tán qua đối tác thứ ba (Google OAuth2). Quản lý quyền truy cập được thực hiện theo cơ chế phi trạng thái (Stateless) đối với các API nghiệp vụ thông qua mã thông báo JSON Web Token (JWT).
 
-  === Luồng Streaming Nội dung và Cá nhân hóa Trải nghiệm
-  // Đặc tả luồng dữ liệu tối ưu: Kiểm tra bộ nhớ đệm Redis (Hot Comics) -> Truy xuất PostgreSQL nếu cache miss.
-  // Tiến trình đồng bộ lịch sử đọc (Reading History Sync) thời gian thực và lưu trữ tủ sách (Bookmark).
+#figure(
+  image("/images/sequence_diagrams/auth_flows/local_auth.svg"),
+  caption: [Sơ đồ tuần tự luồng xác thực nội bộ (Local Authentication)],
+) <fig-local-auth-sequence>
 
-== Thiết kế Luồng xử lý Bất đồng bộ và Đường ống AI (Asynchronous AI Processing Pipeline)
+#v(100pt)
 
-  === Cơ chế Điều phối Tác vụ qua Hàng chờ Thông điệp (Message Broker Orchestration)
-  // Sơ đồ Tuần tự mô tả tiến trình: Admin tải lên chương truyện -> Backend Spring Boot kiểm tra dữ liệu, đẩy tệp thô vào Object Storage -> Đóng gói siêu dữ liệu thành thông điệp đẩy vào RabbitMQ -> Giải phóng luồng xử lý của Admin ngay lập tức (Trạng thái: "Đang xử lý ngầm").
+#figure(
+  image("/images/sequence_diagrams/auth_flows/oauth2.svg"),
+  caption: [Sơ đồ tuần tự luồng ủy quyền qua bên thứ ba (Google OAuth2)],
+) <fig-oauth2-sequence>
 
-  === Tiến trình Vận hành và Thực thi của AI Worker Pipeline
-  // Đặc tả luồng xử lý ngầm bất đồng bộ phía AI Worker (Python FastAPI): Kéo thông điệp từ RabbitMQ -> Chạy đường ống tuần tự (Panel Detection -> OCR -> Inpainting -> LLM Translation) -> Đẩy tệp ảnh sạch và siêu dữ liệu tọa độ JSON kết quả lên MinIO -> Gọi Webhook thông báo cho Core Backend cập nhật trạng thái chương truyện hoàn tất.
+#figure(
+  image("/images/sequence_diagrams/auth_flows/rbac.svg"),
+  caption: [Sơ đồ tuần tự luồng kiểm soát phân quyền dựa trên vai trò (RBAC)],
+) <fig-rbac-sequence> 
 
-== Thiết kế Luồng giao tiếp Client - AI và Trình xem truyện thông minh (Smart Client-AI Interaction)
+=== Luồng Quản lý và Truy xuất Tài nguyên Nội dung
 
-  === Cơ chế Tải động và Phủ đè Lớp chữ (Dynamic Text Layer Rendering)
-  // Mô tả giải pháp Next.js tải song song hai nguồn tài nguyên từ MinIO: Ảnh nền sạch (Inpainted Image) và tệp JSON chứa tọa độ + chuỗi dịch. Khối Client tự động tính toán tỷ lệ khung hình (Scaling) và render lớp phủ văn bản (HTML/CSS Text Layer) đè khít lên khung thoại gốc.
+Các luồng truy xuất nội dung đảm nhiệm vai trò kiểm soát và đồng bộ vòng đời dữ liệu cấu trúc của truyện, chương, trang và danh mục thể loại.
 
-  === Tiến trình Tương tác Dịch thuật Tức thì (Tap-to-Translate Execution)
-  // Sơ đồ Tuần tự chi tiết cho khâu đọc truyện thông minh: Khi Độc giả chạm vào vùng chữ, Client tự động tính toán va chạm hình học (Collision Detection) dựa trên tọa độ chuột/chạm và Bounding Box có sẵn trong file JSON để hiển thị Popup giải nghĩa tức thì mà không cần gọi lại API của mô hình AI, giúp tối ưu chi phí hạ tầng và băng thông.
+#figure(
+  image("/images/sequence_diagrams/comic_mng/createComic.svg"),
+  caption: [Sơ đồ tuần tự luồng tạo mới truyện tranh],
+) <fig-rbac-sequence> 
+
+#figure(
+  image("/images/sequence_diagrams/comic_mng/createCategory.svg"),
+  caption: [Sơ đồ tuần tự luồng tạo mới danh mục thể loại],
+) <fig-rbac-sequence>
+
+#figure(
+  image("/images/sequence_diagrams/comic_mng/createChapterAndUploadPage.svg"),
+  caption: [Sơ đồ tuần tự tạo mới chương và tả lên trang truyện],
+) <fig-rbac-sequence>
+
+#figure(
+  image("/images/sequence_diagrams/comic_mng/getPages.svg"),
+  caption: [Sơ đồ tuần tự truy xuất dữ liệu trang truyện],
+) <fig-rbac-sequence>
+
+=== Luồng truy vấn dữ liệu tìm kiếm truyện
+#figure(  image("/images/sequence_diagrams/search.svg"),
+  caption: [Sơ đồ hoạt động mô tả đường ống AI Worker Pipeline (A)]
+)
+
+#pagebreak()
+== Thiết kế luồng AI (AI Processing Pipeline)
+
+#figure(
+  image("/images/activity_diagrams/cropped-ai_pipeline.svg"),
+  caption: [Sơ đồ hoạt động mô tả đường ống AI Worker Pipeline (A)]
+)
+
+#figure(
+  image("/images/activity_diagrams/cropped-ai_pipeline (1).svg"),
+  caption: [Sơ đồ hoạt động mô tả đường ống AI Worker Pipeline (B)]
+)
+#pagebreak()
+
 
 == Thiết kế Giao diện Người dùng (UI/UX Layout Design)
 
-  === Kiến trúc Hệ thống Layout Tổng thể và Trang không gian Quản trị
-  === Thiết kế Trình xem truyện chuyên dụng (Smart Comic Viewer Interface)
+Hệ thống Next.js Frontend được tổ chức theo kiến trúc hướng thành phần, phân tách rõ ràng giữa các khối giao diện dùng chung và các khối giao diện đặc thù theo từng trang nghiệp vụ.
+
+=== Thành phần cấu trúc cơ sở:
+ 
+Các thành phần đóng vai trò làm khung xương  định hình không gian hiển thị ứng dụng, xuất hiện cố định tại các vùng biên của màn hình:
+
+\- `<Sidebar>` & `<SidebarItem>`: Khung điều hướng dạng thanh dọc đặt ở phía bên trái giao diện Dashboard, hỗ trợ chuyển mạch nhanh giữa các phân khu quản trị và xuất bản.
+
+\- `<Topbar>` & `<TopbarItem>`: Thanh công cụ phía trên cùng, chứa thông tin tài khoản, ảnh đại diện, và các nút thao tác nhanh.
+
+\- `<LanguageToggle>`: Thành phần chuyển đổi ngôn ngữ giao diện thời gian thực.
+
+\- `<ThemeToggle>`: Thành phần chuyển đổi chế độ hiển thị Sáng/Tối (Light/Dark Mode).
+
+=== Thành phần phổ biến dùng chung
+
+Tập hợp các thành phần cốt lõi có tần suất tái sử dụng cao trên toàn bộ hệ thống:
+
+\- `<CButton>`: Thành phần nút bấm chuẩn hóa, đóng gói sẵn các hiệu ứng tương tác (Hover, Active, Loading state).
+
+\- `<CInput>`: Khung nhập liệu đa năng, tích hợp sẵn logic kiểm tra lỗi (Validation) cục bộ cho các biểu mẫu đăng nhập, đăng ký và cập nhật siêu dữ liệu.
+
+\- `<CForm>`: Bộ bọc biểu mẫu (Form Wrapper), đóng vai trò quản lý trạng thái dữ liệu thu thập từ các `<CInput>` con trước khi chuyển giao cho tầng dịch vụ xử lý.
+
+\- `<CModal>`: Hộp thoại nổi (Pop-up overlay) dùng cho các tác vụ xác nhận quan trọng (ví dụ: xác nhận xóa trang truyện, thông báo lỗi hệ thống, hoặc hiển thị cửa sổ tra từ Tap-to-Translate).
+
+=== Các trang nghiệp vụ
+\- Trình xem và tương tác truyện
+
+\- Giao diện tải lên chương truyện
+
+\- Trang tổng quan và quản trị

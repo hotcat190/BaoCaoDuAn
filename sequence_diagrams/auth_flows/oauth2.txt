@@ -1,0 +1,14 @@
+title Luồng Ủy quyền qua Bên thứ ba (Google OAuth2)
+
+autonumber
+
+Client->Backend: GET /oauth2/authorization/google
+Backend-->Client: HTTP 302 Redirect sang Google Login Page
+Client->Google: Xác thực tài khoản & Cấp quyền profile/email
+Google-->Backend: Redirect về Callback URL với Authorization Code
+Backend->Backend: Trao đổi Code lấy Token & Trích xuất OAuth2User profile
+Backend->Database: authenticateGoogleUser() (Đồng bộ tài khoản ngầm)
+Database-->Backend: Bản ghi User cập nhật hoàn tất
+Backend->Backend: Sinh mã thông báo JWT từ hồ sơ User
+Backend->Client: Set-Cookie: COMIC_AUTH=<token> (HttpOnly, SameSite=Lax)
+Backend-->Client: HTTP 302 Chuyển hướng về Frontend UI (/oauth2/success)

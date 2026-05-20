@@ -1,0 +1,79 @@
+graph LR
+    %% Định nghĩa phong cách tổng thể (Hand-drawn look/Excalidraw style thông qua cấu hình màu sắc phẳng)
+    classDef default fill:#fff,stroke:#333,stroke-width:2px;
+    classDef container fill:#f9f9f9,stroke:#666,stroke-width:2px,stroke-dasharray: 5 5;
+    classDef cloud fill:#f0f4f8,stroke:#4a90e2,stroke-width:2px;
+    classDef database fill:#fff,stroke:#333,stroke-width:2px;
+
+    %% 1.Presentation Layer
+    subgraph presentation ["Presentation Layer"]
+        nextjs["Next.js Frontend UI"]
+    end
+    class presentation container;
+
+    %% 2. Third-Party Systems
+    subgraph external ["Third-Party Systems"]
+        google_oauth["Google OAuth2 Server"]:::cloud
+        gemini_api["Gemini AI API"]:::cloud
+    end
+    class external container;
+
+    %% 3. Core Backend Layer
+    subgraph backend ["Core Backend (Spring Boot Framework)"]
+        spring_boot["Spring Boot Server"]
+        postgres[("PostgreSQL Database")]:::database
+        elasticsearch["Elasticsearch Engine"]
+        redis[("Redis Cache")]:::database
+
+        spring_boot -->|Read/Write| postgres
+        spring_boot -->|Index & Full-text Search| elasticsearch
+        spring_boot -->|Cache Queries| redis
+    end
+    class backend container;
+
+    %% 4. Message Broker
+    subgraph broker ["Message Broker"]
+        rabbitmq["RabbitMQ"]
+    end
+    class broker container;
+
+    %% 5. Asynchronous AI Pipeline Layer
+    subgraph pipeline ["Asynchronous AI Pipeline"]
+        fastapi["FastAPI AI Worker"]
+        
+        subgraph engines ["OCR Engine"]
+            yolov12["Panel Detector (YOLOv12)"]
+            ctd["Text Detector \n(ComicTextDectector)"]
+            mocr["OCR Engine (MangaOCR)"]
+            lama["Inpainting (SimpleLaMa)"]
+            paddleocr["PaddleOCR-v5"]
+
+
+            yolov12 --> ctd --> mocr --> lama
+            paddleocr --> lama
+        end
+        
+        fastapi -->|Orchestrate Execution| engines
+    end
+    class pipeline container;
+
+    %% 6. Object Storage Layer
+    subgraph storage ["Object Storage"]
+        minio[("MinIO Storage Cluster")]:::database
+    end
+    class storage container;
+
+    %% --- Các đường truyền liên kết liên phân hệ ---
+    nextjs -->|HTTPS / JSON API| spring_boot
+    nextjs -->|Federated Identity Auth| google_oauth
+    nextjs -->|Direct Image Stream Access| minio
+
+    spring_boot -->|Publish Task JSON| rabbitmq
+    rabbitmq -->|Consume Task Async| fastapi
+
+    fastapi -->|Download Raw / Upload Cleaned| minio
+    spring_boot -->|Upload CoverArt / Fetch JSON Specs| minio
+
+    fastapi -->|HTTP POST Webhook Callback| spring_boot
+    fastapi -->|Context-Aware Machine Translation| gemini_api
+    spring_boot -->|Exchange Profile Info| google_oauth

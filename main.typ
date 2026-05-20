@@ -72,6 +72,8 @@
 #pagebreak()
 #include "contents/chuong3.typ"
 #pagebreak()
+#include "contents/chuong4.typ"
+#pagebreak()
 
 #heading(numbering: none)[Tài liệu tham khảo]
 #bibliography("bibliography.yml", title: none)

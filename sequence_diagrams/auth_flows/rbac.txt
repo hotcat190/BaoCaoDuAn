@@ -1,0 +1,14 @@
+title Luồng Kiểm soát Phân quyền dựa trên Vai trò (RBAC)
+
+autonumber
+
+Client->Backend: Gửi yêu cầu HTTP (GET /admin/users) [Kèm Header hoặc Cookie Token]
+Backend->Backend: JwtAuthenticationFilter đánh chặn và bóc tách Token
+Backend->Backend: Giải mã signature, xác định Role (MEMBER/ADMIN)
+alt Quyền hạn hợp lệ (Role = ADMIN)
+    Backend->Database: Thực thi câu lệnh truy vấn dữ liệu quản trị
+    Database-->Backend: Tập kết quả dữ liệu cấu trúc
+    Backend-->Client: HTTP 200 OK (PageDataResponse)
+else Không đủ đặc quyền hoặc Token hết hạn
+    Backend-->Client: HTTP 403 Forbidden / 401 Unauthenticated
+end
