@@ -137,6 +137,8 @@ Thay vì sử dụng các công cụ dịch thuật theo từng dòng thô sơ, 
 
 \- *Redis (High-Speed Caching):* Lớp lưu trữ dữ liệu trên bộ nhớ RAM, được sử dụng để tối ưu tốc độ truy xuất các thông tin có tần suất đọc cao như tiến trình đọc của người dùng, bảng xếp hạng truyện và quản lý cơ chế giới hạn tần suất gọi API (Rate Limiting). @redis
 
+\- *Docker*
+
 //1.5.
 == Kiến trúc Microservices và Xử lý bất đồng bộ
 

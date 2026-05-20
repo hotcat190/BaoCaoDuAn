@@ -579,7 +579,3 @@ Bên cạnh các yêu cầu chức năng cốt lõi được mô tả qua hệ t
 \- *An toàn dữ liệu truyền tải:* Toàn bộ dữ liệu trao đổi giữa ứng dụng phía người dùng và các dịch vụ máy chủ phải được mã hóa truyền tải qua các giao thức mạng bảo mật mã hóa tiêu chuẩn nhằm chống lại các nguy cơ đánh cắp thông tin trên đường truyền.
 
 \- *Kiểm soát dữ liệu đầu vào:* Hệ thống phải thực hiện lọc và chuẩn hóa toàn bộ dữ liệu văn bản do người dùng nhập vào (đặc biệt là tính năng gửi bình luận) để triệt tiêu hoàn toàn các nguy cơ tấn công chèn mã độc.
-
-=== Yêu cầu về tính sẵn sàng và khả năng co giãn (Availability & Scalability)
-
-\- *Khả năng mở rộng phân tán:* Dịch vụ xử lý hình ảnh trí tuệ nhân tạo phải được thiết kế độc lập để có thể dễ dàng nhân bản, gia tăng số lượng các tiến trình xử lý ngầm (Workers) khi khối lượng chương truyện tải lên hệ thống tăng đột biến mà không cần phải tái cấu trúc toàn bộ kiến trúc phần mềm.
