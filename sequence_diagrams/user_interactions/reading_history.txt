@@ -1,0 +1,26 @@
+title Luồng đồng bộ và lưu lịch sử đọc truyện
+autonumber
+
+User->Frontend: Đọc truyện (Chuyển trang hoặc chuyển chương)
+Frontend->Backend: PUT /reading-histories\n (Payload: comicId, chapterId, lastPageRead, clientUpdatedAt)
+Backend->Database: Kiểm tra bản ghi lịch sử đọc qua cặp định danh userId và comicId
+
+alt Chưa có lịch sử đọc trên hệ thống (Bản ghi rỗng)
+    Database-->Backend: Trả về kết quả rỗng (null)
+    Backend->Database: Khởi tạo và lưu mới bản ghi lịch sử đọc (INSERT)
+    Database-->Backend: Xác nhận lưu bản ghi thành công
+    Backend-->Frontend: Phản hồi thông báo thành công \n(MessageResponse: "Tiến độ đọc đã được lưu.")
+    Frontend-->User: Cập nhật giao diện ghi nhận tiến độ đọc mới
+
+else Đã có lịch sử đọc và thời gian máy khách gửi lên mới hơn (clientTime > serverTime)
+    Database-->Backend: Trả về thông tin bản ghi lịch sử hiện tại trên Server
+    Backend->Database: Cập nhật thông tin tiến độ đọc mới \n(UPDATE: chapterId, lastPageRead, updatedAt)
+    Database-->Backend: Xác nhận cập nhật bản ghi thành công
+    Backend-->Frontend: Phản hồi thông báo thành công \n(MessageResponse: "Tiến độ đọc đã được lưu.")
+    Frontend-->User: Cập nhật giao diện ghi nhận tiến độ đọc mới
+
+else Đã có lịch sử đọc nhưng dữ liệu trên Server mới hơn hoặc bằng (clientTime <= serverTime)
+    Database-->Backend: Trả về thông tin bản ghi lịch sử hiện tại trên Server
+    Backend-->Frontend: Phản hồi từ chối cập nhật \n(MessageStatusResponse: status="IGNORED")
+    Frontend-->User: Giữ nguyên trạng thái hiển thị tiến độ cũ trên giao diện
+end

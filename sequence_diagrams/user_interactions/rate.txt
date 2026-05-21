@@ -1,0 +1,16 @@
+title Luồng đánh giá truyện tranh
+autonumber
+
+User->Frontend: Chọn số sao đánh giá (1-5)\n và nhấn xác nhận 
+Frontend->Backend: POST /comics/{comicId}/rate\n(Payload: score)
+Backend->Database: Kiểm tra phiên đăng nhập, sự tồn tại của truyện\n và ghi nhận/cập nhật số sao
+
+alt Dữ liệu hợp lệ và cập nhật thành công
+    Database-->Backend: Xác nhận lưu bản ghi và tính toán lại\n điểm số trung bình của truyện
+    Backend-->Frontend: Phản hồi thông tin tổng hợp đánh giá mới (JSON)
+    Frontend-->User: Cập nhật trạng thái số sao đã chọn và\n hiển thị điểm trung bình mới lên giao diện
+else Gặp lỗi hệ thống (Chưa đăng nhập / Truyện không tồn tại / Số sao ngoài khoảng 1-5)
+    Database-->Backend: Trả về trạng thái lỗi hoặc\n không tìm thấy dữ liệu truyện tương ứng
+    Backend-->Frontend: Phản hồi mã lỗi nghiệp vụ phù hợp (401 / 404 / 400)
+    Frontend-->User: Hiển thị thông báo lỗi chi tiết lên màn hình
+end

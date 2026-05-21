@@ -13,3 +13,6 @@ else Cache Miss
     ElasticSearch-->Backend: Trả về tập hợp tài liệu tài nguyên tương ứng
     Backend->Redis_Cache: Lưu trữ kết quả mới vào bộ đệm 
 end
+
+Backend-->Frontend: Trả về dữ liệu kết quả tìm kiếm
+Frontend-->User: Hiển thị danh sách truyện tranh

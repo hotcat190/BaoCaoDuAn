@@ -74,6 +74,8 @@
 #pagebreak()
 #include "contents/chuong4.typ"
 #pagebreak()
+#include "contents/ket_luan.typ"
+#pagebreak()
 
 #heading(numbering: none)[Tài liệu tham khảo]
 #bibliography("bibliography.yml", title: none)

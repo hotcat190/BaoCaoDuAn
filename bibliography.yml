@@ -203,3 +203,10 @@ docker:
   type: "Web"
   url: "https://www.docker.com/"
   year: 2026
+
+postman:
+  title: "Postman API Platform: Build, Test, and Document APIs"
+  author: "Postman Inc."
+  type: "web"
+  url: "https://www.postman.com"
+  year: 2026  

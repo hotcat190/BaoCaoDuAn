@@ -1,0 +1,16 @@
+title Luồng gửi bình luận lên chương truyện
+autonumber
+
+User->Frontend: Nhập nội dung bình luận và chọn gửi
+Frontend->Backend: POST /chapters/{chapterId}/comments
+Backend->Database: Kiểm tra thông tin chương và lưu dữ liệu bình luận
+
+alt Dữ liệu hợp lệ và lưu trữ thành công
+    Database-->Backend: Xác nhận lưu bản ghi thành công
+    Backend-->Frontend: Phản hồi dữ liệu bình luận mới (JSON)
+    Frontend-->User: Hiển thị bình luận mới lên giao diện màn hình
+else Gặp lỗi hệ thống (Chưa đăng nhập / Chương không tồn tại)
+    Database-->Backend: Trả về lỗi trạng thái hoặc không tìm thấy dữ liệu
+    Backend-->Frontend: Phản hồi mã lỗi tương ứng (401 / 404)
+    Frontend-->User: Hiển thị thông báo lỗi chi tiết lên màn hình
+end
