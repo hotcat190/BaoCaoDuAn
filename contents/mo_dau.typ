@@ -32,14 +32,13 @@ Dự án kết hợp chặt chẽ giữa nghiên cứu lý thuyết và triển 
 \- *Phương pháp thực nghiệm:* Cài đặt và tích hợp các mô hình pre-trained chuyên dụng; thực hiện cấu hình kết nối API của các mô hình ngôn ngữ lớn; tiến hành kiểm thử tải và đo lường thời gian phản hồi thực tế của tính năng tương tác AI.
 
 == Bố cục của báo cáo
-Nội dung của báo cáo gồm 5 chương:
+Nội dung của báo cáo gồm 4 chương:
 
-\- *Chương 1: Cơ sở lý thuyết và Công nghệ áp dụng:* Trình bày tổng quan về các định dạng truyện tranh, lý thuyết nền tảng về AI (OCR, Inpainting, LLM), kiến trúc xử lý bất đồng bộ và lý do lựa chọn các công nghệ triển khai (Next.js, Spring Boot, FastAPI, RabbitMQ).
+\- *Chương 1: Cơ sở lý thuyết và công nghệ áp dụng:* Trình bày tổng quan về các định dạng truyện tranh, lý thuyết nền tảng về AI (OCR, Inpainting, LLM), kiến trúc xử lý bất đồng bộ và lý do lựa chọn các công nghệ triển khai (Next.js, Spring Boot, FastAPI, RabbitMQ).
 
-\- *Chương 2: Phân tích Yêu cầu Hệ thống:* Xác định các tác nhân, xây dựng biểu đồ Use Case tổng quát, đặc tả chi tiết các luồng nghiệp vụ cốt lõi của người dùng và quản trị viên, cùng các yêu cầu phi chức năng về hiệu năng và bảo mật.
+\- *Chương 2: Phân tích yêu cầu hệ thống:* Xác định các tác nhân, xây dựng biểu đồ Use Case tổng quát, đặc tả chi tiết các luồng nghiệp vụ cốt lõi của người dùng và quản trị viên, cùng các yêu cầu phi chức năng về hiệu năng và bảo mật.
 
-\- *Chương 3: Thiết kế Kiến trúc và Hệ thống:* Mô tả kiến trúc tổng thể Hybrid SOA, thiết kế cơ sở dữ liệu quan hệ (ERD), thiết kế chi tiết luồng tiền xử lý AI bất đồng bộ và luồng tương tác Client - AI thông qua các sơ đồ tuần tự (Sequence Diagram).
+\- *Chương 3: Thiết kế kiến trúc hệ thống:* Mô tả kiến trúc tổng thể Hybrid SOA, thiết kế cơ sở dữ liệu quan hệ (ERD), thiết kế chi tiết luồng tiền xử lý AI bất đồng bộ và luồng tương tác Client - Service thông qua các sơ đồ tuần tự (Sequence Diagram).
 
-\- *Chương 4: Cài đặt và Triển khai:* Chi tiết hóa quá trình lập trình, cấu hình môi trường Docker, xây dựng mã nguồn cho các service và tích hợp hệ thống hàng chờ thông điệp để xử lý dữ liệu hình ảnh.
+\- *Chương 4: Cài đặt, triển khai và kiểm thử:* Chi tiết hóa quá trình lập trình, cấu hình môi trường Docker, xây dựng mã nguồn cho các service và tích hợp hệ thống hàng chờ thông điệp để xử lý dữ liệu hình ảnh. Mô tả quá trình kiểm thử chức năng, đảm bảo hệ thống chạy đúng yêu cầu.
 
-\- *Chương 5: Thử nghiệm và Đánh giá:* Trình bày các kịch bản thử nghiệm hệ thống, kết quả thực nghiệm về chất lượng của các mô hình AI và các số liệu đo lường hiệu năng phản hồi thực tế.

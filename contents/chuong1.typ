@@ -101,7 +101,7 @@ Koharu @koharu là một giải pháp hiện đại ứng dụng Machine Learnin
 Từ các phân tích trên, dự án hướng tới việc kế thừa khả năng xử lý Pipeline khép kín của các giải pháp tự động, nhưng cải tiến bằng cách tách rời các service theo kiến trúc Microservices kết hợp hàng chờ Message Broker nhằm tối ưu hiệu năng tối đa cho môi trường đa nền tảng.
 
 // 1.3
-== Công nghệ Trí tuệ Nhân tạo (AI) trong xử lý đa phương tiện
+== Công nghệ Trí tuệ nhân tạo (AI) trong xử lý đa phương tiện
 
 Hệ thống đề xuất sử dụng kết hợp các mô hình học sâu chuyên dụng cho từng tác vụ trong đường ống xử lý hình ảnh và ngôn ngữ, bao gồm ba thành phần cốt lõi.
 
@@ -125,7 +125,7 @@ Thay vì sử dụng các công cụ dịch thuật theo từng dòng thô sơ, 
 
 \- *Spring Boot (Core Backend Service):* Nền tảng vững chắc quản trị toàn bộ logic nghiệp vụ hệ thống, quản lý người dùng, phân quyền bảo mật (JWT) và điều phối giao tiếp dữ liệu. Hệ sinh thái mạnh mẽ của Spring giúp đảm bảo tính toàn vẹn dữ liệu ở các luồng nghiệp vụ phức tạp. @springboot
 
-\- *FastAPI (AI Engine Service):* Framework Python có hiệu năng cao, xây dựng trên nền tảng ASGI, hỗ trợ native cơ chế bất đồng bộ (`async/await`). FastAPI đóng vai trò làm cổng giao tiếp API cho các mô hình máy học (OCR, LaMa), giúp giảm thiểu tối đa overhead khi truyền tải dữ liệu hình ảnh nhị phân dung lượng lớn. @fastapi
+\- *FastAPI (AI Engine Service):* Framework Python có hiệu năng cao, xây dựng trên nền tảng ASGI, hỗ trợ native cơ chế bất đồng bộ (`async/await`). FastAPI đóng vai trò làm cổng giao tiếp giữa Core Backend và AI Pipeline. @fastapi
 
 \- *PostgreSQL (Relational Database):* Hệ quản trị cơ sở dữ liệu quan hệ được chọn để lưu trữ các thông tin có tính cấu trúc chặt chẽ như tài khoản người dùng, cấu trúc phân cấp Truyện - Chương, lịch sử đọc truyện và hệ thống cấu hình. @postgresql
 
@@ -135,7 +135,7 @@ Thay vì sử dụng các công cụ dịch thuật theo từng dòng thô sơ, 
 
 \- *Redis (High-Speed Caching):* Lớp lưu trữ dữ liệu trên bộ nhớ RAM, được sử dụng để tối ưu tốc độ truy xuất các thông tin có tần suất đọc cao như tiến trình đọc của người dùng, bảng xếp hạng truyện và quản lý cơ chế giới hạn tần suất gọi API (Rate Limiting). @redis
 
-\- *Docker*
+\- *Docker (Containerization Platform):* Nền tảng đóng gói mã nguồn và tất cả các thư viện phụ thuộc thành các vùng chứa (Container) độc lập, giúp nhất quán hóa môi trường vận hành từ giai đoạn phát triển cục bộ đến khi triển khai thực tế. Trong hệ thống, Docker đóng vai trò cốt lõi để cô lập và quản lý các phân hệ đa nền tảng bao gồm máy chủ Spring Boot, đường ống xử lý AI bằng Python (FastAPI) cùng các cụm dịch vụ lưu trữ, tìm kiếm, đảm bảo khả năng mở rộng linh hoạt theo kiến trúc Microservices. @docker
 
 //1.5.
 == Kiến trúc Microservices và Xử lý bất đồng bộ

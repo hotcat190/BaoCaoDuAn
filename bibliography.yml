@@ -196,3 +196,10 @@ use-case-table:
   type: "web"
   year: 2024
   url: "https://florian-kraemer.net/software-architecture/2024/02/28/Use-Case-Tables.html"
+
+docker:
+  title: "Docker: Accelerated Container Application Development"
+  author: "Docker Inc."
+  type: "Web"
+  url: "https://www.docker.com/"
+  year: 2026
