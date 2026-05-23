@@ -3,7 +3,7 @@ skinparam backgroundcolor #ffffff
 skinparam roundcorner 8
 skinparam packageStyle rect
 skinparam defaultFontName "Arial"
-skinparam defaultFontSize 12
+skinparam defaultFontSize 13
 
 skinparam actor {
     BorderColor #34495e

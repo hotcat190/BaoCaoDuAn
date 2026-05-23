@@ -61,7 +61,9 @@ Các container của AI Pipeline:
 
 \- `app/store`: Quản lý và duy trì trạng thái toàn cục cho phiên làm việc của người dùng bằng thư viện Zustand thông qua tệp `userStore.ts`.
 
-=== Các thư viện nền tảng được áp dụng
+=== Các công nghệ và thư viện nền tảng được áp dụng
+
+\- `Next.js 16` & `React 19`: Framework và thư viện giao diện cốt lõi hỗ trợ cơ chế render phía máy chủ (SSR) và tối ưu hóa hiệu năng ứng dụng.
 
 \- `@tanstack/react-query` & `axios`: Bộ đôi quản lý việc gửi yêu cầu HTTP, đồng bộ hóa và lưu bộ nhớ đệm (caching) dữ liệu từ phía Core Backend.
 
@@ -89,7 +91,7 @@ Các container của AI Pipeline:
 
 \- `security`: Thiết lập bộ lọc bảo mật hệ thống dựa trên Spring Security, sử dụng cơ chế JWT thông qua HTTP-Only Secure Cookie và phân quyền truy cập dựa trên vai trò người dùng (RBAC).
 
-=== Các thư viện nền tảng được áp dụng
+=== Các công nghệ và thư viện nền tảng được áp dụng
 
 \- `Spring Security, JWT & OAuth2`: Cung cấp giải pháp bảo mật toàn diện cho hệ thống API, quản lý phiên làm việc an toàn và tích hợp các phương thức đăng nhập bên thứ ba.
 
@@ -134,7 +136,7 @@ AI Pipeline được xây dựng trên nguyên tắc OOP. Mô tả các file mã
 
 \- `src/engines/ocr.py`: định nghĩa lớp OcrService, khởi tạo và quản lý các model `MangaOcr`, `PaddleOCR`.
 
-=== Các thư viện nền tảng được áp dụng
+=== Các công nghệ học sâu và thư viện cốt lõi được áp dụng trong AI Pipeline
 
 \- `FastAPI` & `uvicorn`: Framework và Web Server hiệu năng cao hỗ trợ xây dựng các API endpoint bất đồng bộ, tối ưu hóa tốc độ tiếp nhận yêu cầu xử lý từ hệ thống và tiếp nhận dữ liệu tải lên thông qua thư viện `python-multipart`.
 
@@ -221,7 +223,7 @@ Sau khi hoàn tất quy trình kiểm thử liên kết và chạy tích hợp t
 
 Hiệu năng và độ chính xác của AI Pipeline được đo lường thực tế trên môi trường máy thử nghiệm cục bộ sử dụng CPU Intel Core i7-12700K, RAM 16GB:
 
-\- *Thời gian xử lý trung bình mỗi trang truyện:* 
+\- *Thời gian xử lý trung bình mỗi trang truyện (Latency per Page):* 
   Qua thực nghiệm đo lường trên một chương truyện gồm 5 trang ảnh Manga Nhật Bản tiêu biểu, kết quả ghi nhận như sau:
   + Đối với luồng xử lý đầy đủ bao gồm cả dịch thuật ngữ cảnh bằng LLM: Thời gian xử lý trung bình đạt ~11.17 giây/trang. Trong đó, thời gian gọi API mô hình ngôn ngữ lớn (Gemini 3.1 Flash-Lite) chiếm khoảng 1.5 - 3 giây, phần thời gian còn lại chủ yếu dành cho việc chạy mô hình inpainting SimpleLama và OCR trên CPU.
   + Đối với luồng chỉ xử lý Inpaint và OCR (bỏ qua dịch thuật): Thời gian xử lý trung bình biến động ở mức ~21.30 giây/trang. Sự chênh lệch này do sự phân phối tải tính toán CPU cục bộ đối với mô hình mạng inpainting SimpleLama trên các cấu trúc hình học mặt nạ phức tạp của từng trang.
