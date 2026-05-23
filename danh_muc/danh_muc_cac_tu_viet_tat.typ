@@ -23,7 +23,6 @@
   stt(), [CPU], [Central Processing Unit], [Bộ xử lý trung tâm],
   stt(), [CSS], [Cascading Style Sheets], [Bảng kiểu mẫu tuần tự định dạng trang web],
   stt(), [DTO], [Data Transfer Object], [Đối tượng chuyển giao dữ liệu],
-  stt(), [ERD], [Entity Relationship Diagram], [Sơ đồ thực thể liên kết],
   stt(), [FFC], [Fast Fourier Convolution], [Phép tích chập Fourier nhanh],
   stt(), [GAN], [Generative Adversarial Network], [Mạng sinh đối nghịch],
   stt(), [GPU], [Graphics Processing Unit], [Bộ xử lý đồ họa],

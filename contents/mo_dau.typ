@@ -38,7 +38,7 @@ Nội dung của báo cáo gồm 4 chương:
 
 \- *Chương 2: Phân tích yêu cầu hệ thống:* Xác định các tác nhân, xây dựng biểu đồ Use Case tổng quát, đặc tả chi tiết các luồng nghiệp vụ cốt lõi của người dùng và quản trị viên, cùng các yêu cầu phi chức năng về hiệu năng và bảo mật.
 
-\- *Chương 3: Thiết kế kiến trúc hệ thống:* Mô tả kiến trúc tổng thể Hybrid SOA, thiết kế cơ sở dữ liệu quan hệ (ERD), thiết kế chi tiết luồng tiền xử lý AI bất đồng bộ và luồng tương tác Client - Service thông qua các sơ đồ tuần tự (Sequence Diagram).
+\- *Chương 3: Thiết kế kiến trúc hệ thống:* Mô tả kiến trúc tổng thể Hybrid SOA, thiết kế sơ đồ quan hệ cơ sở dữ liệu, thiết kế chi tiết luồng tiền xử lý AI bất đồng bộ và luồng tương tác Client - Service thông qua các sơ đồ tuần tự (Sequence Diagram).
 
 \- *Chương 4: Cài đặt, triển khai và kiểm thử:* Chi tiết hóa quá trình lập trình, cấu hình môi trường Docker, xây dựng mã nguồn cho các service và tích hợp hệ thống hàng chờ thông điệp để xử lý dữ liệu hình ảnh. Mô tả quá trình kiểm thử chức năng, đảm bảo hệ thống chạy đúng yêu cầu.
 

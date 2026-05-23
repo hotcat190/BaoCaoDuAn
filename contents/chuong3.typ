@@ -57,16 +57,16 @@ Hệ thống triển khai phương pháp Polyglot Persistence để đáp ứng 
 
 Hệ thống sử dụng hệ quản trị cơ sở dữ liệu quan hệ PostgreSQL để lưu trữ dữ liệu cấu trúc có tính toàn vẹn cao, thực thi các ràng buộc dữ liệu và phục vụ các tác vụ truy vấn nghiệp vụ cốt lõi.
 
-=== Biểu đồ thực thể liên kết (ERD)
+=== Sơ đồ quan hệ cơ sở dữ liệu
 
-Mô hình dữ liệu logic của hệ thống được biểu diễn thông qua cấu trúc thực thể liên kết, xác định rõ các thực thể chính và các mối quan hệ ràng buộc giữa chúng trong hệ thống quản lý truyện tranh tích hợp xử lý dịch thuật.
+Mô hình dữ liệu của hệ thống được biểu diễn thông qua sơ đồ quan hệ, xác định rõ cấu trúc các bảng và các mối quan hệ ràng buộc giữa chúng trong hệ thống quản lý truyện tranh tích hợp xử lý dịch thuật.
 
 #figure(
   image("../images/ERD_2026-05-20-181355.png"),
-  caption: [Biểu đồ thực thể liên kết],
+  caption: [Sơ đồ quan hệ cơ sở dữ liệu],
 ) <fig-erd>
 #v(12pt)
-Các mối quan hệ logic giữa các thực thể trong hệ thống được quy định cụ thể:
+Các mối quan hệ giữa các bảng trong hệ thống được quy định cụ thể:
 
 \- Một bản ghi trong bảng truyện tranh (Comics) liên kết với nhiều bản ghi trong bảng chương truyện (Chapters), thiết lập mối quan hệ một - nhiều (1 - N).
 
