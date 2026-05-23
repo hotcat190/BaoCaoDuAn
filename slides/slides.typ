@@ -18,12 +18,13 @@
   fill: bg-color, // Nền sáng
   footer: context {
     let page-num = counter(page).get().first()
+    let total-pages = counter(page).final().first()
     if page-num > 1 [
       #block(width: 100%, inset: (top: 8pt), stroke: (top: 1pt + card-border))[
         #grid(
           columns: (1fr, 1fr),
-          align(left)[#text(size: 12pt, fill: rgb("#64748b"))[Khóa luận Tốt nghiệp - Trường Đại học Công nghệ, ĐHQGHN]],
-          align(right)[#text(size: 12pt, fill: rgb("#64748b"))[Trang #page-num / 15]]
+          align(left)[#text(size: 12pt, fill: rgb("#64748b"))[Khoa CNTT - Trường Đại học Công nghệ, ĐHQGHN]],
+          align(right)[#text(size: 12pt, fill: rgb("#64748b"))[Trang #page-num / #total-pages]]
         )
       ]
     ]
@@ -38,35 +39,56 @@
 
 // Các hàm bổ trợ thiết kế layout slide
 #let title-slide(title, subtitle, author, supervisor, institution) = {
-  align(center + horizon)[
-    #block(
-      width: 100%,
-      inset: (top: 30pt, bottom: 30pt, left: 20pt, right: 20pt),
-      stroke: 2pt + accent-blue,
-      radius: 12pt,
-      fill: card-bg
-    )[
-      #text(size: 28pt, weight: "bold", fill: title-color)[#title]
-      #if subtitle != "" [
-        #v(12pt)
-        #text(size: 18pt, style: "italic", fill: rgb("#475569"))[#subtitle]
-      ]
-    ]
-    #v(30pt)
+  block(width: 100%, height: 100%, breakable: false)[
     #grid(
-      columns: (1.2fr, 1fr),
-      align(left)[
-        #text(size: 16pt, fill: text-color)[
-          *Sinh viên thực hiện:* #author \
-          *Đơn vị:* #institution
+      columns: (1fr, auto),
+      align(left + horizon)[
+        #text(size: 11pt, weight: "bold", fill: title-color)[
+          ĐẠI HỌC QUỐC GIA HÀ NỘI \
+          TRƯỜNG ĐẠI HỌC CÔNG NGHỆ
         ]
       ],
-      align(left)[
-        #text(size: 16pt, fill: text-color)[
-          *Giảng viên hướng dẫn:* #supervisor
-        ]
+      align(right + horizon)[
+        #image("../images/Logo_HUET.svg", height: 35pt)
       ]
     )
+    #v(-4pt)
+    #line(length: 100%, stroke: 0.5pt + card-border)
+    #v(10pt)
+    
+    #align(center + horizon)[
+      #block(
+        width: 100%,
+        inset: (top: 15pt, bottom: 15pt, left: 15pt, right: 15pt),
+        stroke: 2pt + accent-blue,
+        radius: 10pt,
+        fill: card-bg
+      )[
+        #text(size: 22pt, weight: "bold", fill: title-color)[#title]
+        #if subtitle != "" [
+          #v(8pt)
+          #text(size: 14pt, style: "italic", fill: rgb("#475569"))[#subtitle]
+        ]
+      ]
+      #v(10pt)
+      #grid(
+        columns: (1.2fr, 1fr),
+        gutter: 20pt,
+        align(left)[
+          #text(size: 13pt, fill: text-color)[
+            *Sinh viên thực hiện:* \
+            #author \
+            *Đơn vị:* #institution
+          ]
+        ],
+        align(top + left)[
+          #text(size: 13pt, fill: text-color)[
+            *Giảng viên hướng dẫn:* \
+            #supervisor
+          ]
+        ]
+      )
+    ]
   ]
 }
 
@@ -90,15 +112,19 @@
 #title-slide(
   "Phát Triển Ứng Dụng Đọc Truyện Tranh Hỗ Trợ Đa Ngôn Ngữ Bằng Việc Ứng Dụng AI Tự Động Dịch",
   "Nghiên cứu và tích hợp các mô hình học sâu (OCR, Inpainting, LLM) và kiến trúc xử lý bất đồng bộ",
-  "Nhóm sinh viên thực hiện",
-  "Giảng viên hướng dẫn",
-  "Trường Đại học Công nghệ - ĐHQGHN"
+  [
+    Nguyễn Đình Nguyên (22021141) \
+    Hoàng Lê Kim Long (22021216) \
+    Hoàng Công Hữu (22021178) \
+  ],
+  [TS. Lê Hồng Hải],
+  "Khoa Công nghệ thông tin"
 )
 
 // ==========================================
 // SLIDE 2: Đặt vấn đề & Mục tiêu đề tài
 // ==========================================
-#slide("1. Đặt vấn đề & Mục tiêu đề tài", [
+#slide("Đặt vấn đề & Mục tiêu đề tài", [
   #grid(
     columns: (1fr, 1fr),
     gutter: 20pt,
@@ -123,7 +149,7 @@
 // ==========================================
 // SLIDE 3: Phân tích định dạng & Thách thức
 // ==========================================
-#slide("2. Định dạng truyện tranh & Thách thức AI", [
+#slide("Định dạng truyện tranh & Thách thức AI", [
   #grid(
     columns: (1.2fr, 1fr),
     gutter: 15pt,
@@ -161,7 +187,7 @@
 // ==========================================
 // SLIDE 4: Giải pháp đề xuất & Mô hình AI sử dụng
 // ==========================================
-#slide("3. Giải pháp đề xuất & Mô hình AI", [
+#slide("Giải pháp đề xuất & Mô hình AI", [
   #grid(
     columns: (1fr, 1fr),
     gutter: 7pt,
@@ -189,7 +215,7 @@
 // ==========================================
 // SLIDE 5: Dịch thuật ngữ cảnh với Gemini LLM
 // ==========================================
-#slide("4. Dịch thuật ngữ cảnh với Gemini LLM", [
+#slide("Dịch thuật ngữ cảnh với Gemini LLM", [
   #grid(
     columns: (1.1fr, 1fr),
     gutter: 20pt,
@@ -226,44 +252,9 @@
 ])
 
 // ==========================================
-// SLIDE 6: Kiến trúc tổng thể hệ thống (Hybrid SOA)
+// SLIDE 6: Phân tích yêu cầu chức năng (Use Cases)
 // ==========================================
-#slide("5. Kiến trúc tổng thể hệ thống", [
-  #align(center + horizon)[
-        #image("../images/Architecture-2026-05-20-180834.png", width: 90%)
-      ]
-])
-
-// ==========================================
-// SLIDE 7: Giải pháp xử lý bất đồng bộ (RabbitMQ)
-// ==========================================
-#slide("6. Xử lý bất đồng bộ qua RabbitMQ", [
-  #grid(
-    columns: (1fr, 1.25fr),
-    gutter: 15pt,
-    [
-      *Nút thắt cổ chai hệ thống:*
-      - Xử lý AI tốn tài nguyên và thời gian.
-      - HTTP đồng bộ dễ gây *Thread Starvation* và *HTTP Timeout*.
-      
-      *Cơ chế RabbitMQ bất đồng bộ:*
-      1. *Spring Boot*: Nhận file, lưu MinIO, đẩy Job Payload vào Queue $arrow.r$ phản hồi ngay *HTTP 201*.
-      2. *RabbitMQ Queue*: Hàng đợi lưu đệm, co giãn tải tự động.
-      3. *FastAPI AI Worker*: Lắng nghe Queue, chạy AI pipeline độc lập.
-      4. *Callback*: POST Webhook cập nhật kết quả.
-    ],
-    [
-      #align(center + horizon)[
-        #image("../images/sequence_diagrams/async_upload_flows/upload_chapter.svg", width: 95%)
-      ]
-    ]
-  )
-])
-
-// ==========================================
-// SLIDE 8: Phân tích yêu cầu chức năng (Use Cases)
-// ==========================================
-#slide("7. Phân tích yêu cầu chức năng", [
+#slide("Phân tích yêu cầu chức năng", [
   #grid(
     columns: (1fr, 1.2fr),
     gutter: 15pt,
@@ -276,8 +267,39 @@
     ],
     [
       #align(center + horizon)[
-        #image("../images/use_case.svg", width: 100%)
+        #image("../images/use_case.svg", height: 85%)
       ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 7: Kiến trúc tổng thể hệ thống (Hybrid SOA)
+// ==========================================
+#slide("Kiến trúc tổng thể hệ thống", [
+  #align(center + horizon)[
+        #image("../images/Architecture-2026-05-20-180834.png", width: 90%)
+      ]
+])
+
+// ==========================================
+// SLIDE 8: Giải pháp xử lý bất đồng bộ (RabbitMQ)
+// ==========================================
+#slide("Xử lý bất đồng bộ qua RabbitMQ", [
+  #grid(
+    columns: (1fr),
+    gutter: 15pt,
+    text(size: 18pt)[
+      *Nút thắt cổ chai hệ thống:*
+      - Xử lý AI tốn tài nguyên và thời gian.
+      - HTTP đồng bộ dễ gây *Thread Starvation* và *HTTP Timeout*.
+      
+      #v(6pt)
+      *Cơ chế RabbitMQ bất đồng bộ:*
+      1. *Spring Boot*: Nhận file, lưu MinIO, đẩy Job Payload vào Queue $arrow.r$ phản hồi ngay *HTTP 201*.
+      2. *RabbitMQ Queue*: Hàng đợi lưu đệm, co giãn tải tự động.
+      3. *FastAPI AI Worker*: Lắng nghe Queue, chạy AI pipeline độc lập.
+      4. *Callback*: POST Webhook cập nhật kết quả.
     ]
   )
 ])
@@ -285,7 +307,7 @@
 // ==========================================
 // SLIDE 9: Thiết kế CSDL & Polyglot Persistence
 // ==========================================
-#slide("8. Thiết kế CSDL & Polyglot Persistence", [
+#slide("Thiết kế CSDL & Polyglot Persistence", [
   #grid(
     columns: (1fr, 1.3fr),
     gutter: 15pt,
@@ -299,7 +321,7 @@
     ],
     [
       #align(center + horizon)[
-        #image("../images/ERD_2026-05-20-181407.svg", width: 100%)
+        #image("../images/ERD_2026-05-20-181355.png", height: 90%)
       ]
     ]
   )
@@ -308,7 +330,7 @@
 // ==========================================
 // SLIDE 10: Thiết kế siêu dữ liệu tách biệt (Metadata)
 // ==========================================
-#slide("9. Thiết kế siêu dữ liệu (Metadata)", [
+#slide("Thiết kế siêu dữ liệu (Metadata)", [
   *Ý tưởng cốt lõi*: Không vẽ đè chữ lên ảnh. Lưu trữ metadata JSON riêng biệt.
   #v(10pt)
   #grid(
@@ -330,7 +352,7 @@
 // ==========================================
 // SLIDE 11: Chi tiết luồng xử lý AI Pipeline
 // ==========================================
-#slide("10. Luồng xử lý tại AI Pipeline", [
+#slide("Luồng xử lý tại AI Pipeline", [
   #grid(
     columns: (1.1fr, 1fr),
     gutter: 15pt,    
@@ -350,7 +372,7 @@
 // ==========================================
 // SLIDE 12: Cài đặt và Triển khai thực tế
 // ==========================================
-#slide("11. Cài đặt và Triển khai thực tế", [
+#slide("Cài đặt và Triển khai thực tế", [
   #grid(
     columns: (1fr, 1fr),
     gutter: 20pt,
@@ -373,7 +395,7 @@
 // ==========================================
 // SLIDE 13: Đảm bảo chất lượng & Kiểm thử
 // ==========================================
-#slide("12. Kiểm thử & Đảm bảo chất lượng", [
+#slide("Kiểm thử & Đảm bảo chất lượng", [
   #set text(size: 18pt)
   #grid(
     columns: (1.1fr, 1fr),
@@ -398,7 +420,7 @@
 // ==========================================
 // SLIDE 14: Đánh giá chất lượng
 // ==========================================
-#slide("13. Đánh giá chất lượng", [
+#slide("Đánh giá chất lượng", [
   #set text(size: 18pt)
   #grid(
     columns: (1.2fr, 1fr),
@@ -425,7 +447,7 @@
 // ==========================================
 // SLIDE 15: Kết luận & Hướng phát triển tương lai
 // ==========================================
-#slide("14. Kết luận & Hướng phát triển", [
+#slide("Kết luận & Hướng phát triển", [
   #grid(
     columns: (1fr, 1fr),
     gutter: 20pt,
