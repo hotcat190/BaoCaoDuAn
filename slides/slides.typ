@@ -332,19 +332,60 @@
 // ==========================================
 #slide("Thiết kế siêu dữ liệu (Metadata)", [
   *Ý tưởng cốt lõi*: Không vẽ đè chữ lên ảnh. Lưu trữ metadata JSON riêng biệt.
-  #v(10pt)
+  #v(5pt)
   #grid(
     columns: (1fr, 1fr),
-    gutter: 20pt,
+    gutter: 15pt,
     [
-      *original_metadata.json (Tọa độ gốc):*
-      - Lưu danh sách `bubbles[].box`: Tọa độ pixel $[x, y, w, h]$.
-      - Lưu chữ gốc `original_text` và phiên âm `romanization`.
+      #text(weight: "bold", fill: accent-blue)[original_metadata.json (Tọa độ gốc)]
+      #v(4pt)
+      #block(fill: card-bg, inset: 10pt, radius: 6pt, stroke: 1.2pt + card-border, width: 100%)[
+        #set text(size: 11pt, font: "Consolas", fill: text-color)
+        ```json
+        {
+          "page_id": "45",
+          "bubbles": [
+            {
+              "id": 1,
+              "box": [178, 587, 234, 66],
+              "original_text": "크크크",
+              "chunks": [
+                {
+                  "chunk_id": "1-1",
+                  "word": "크크크",
+                  "romanization": "keu-keu-keu"
+                }
+              ]
+            }
+          ]
+        }
+        ```
+      ]
     ],
     [
-      *translation_metadata.json (Bản dịch):*
-      - Ánh xạ qua `bubbles[].id` trùng khớp với tệp gốc.
-      - Lưu dịch nghĩa `full_translation` và chi tiết giải nghĩa từng từ `chunk_meanings` (cho pop-up).
+      #text(weight: "bold", fill: accent-blue)[translation_metadata.json (Bản dịch)]
+      #v(4pt)
+      #block(fill: card-bg, inset: 10pt, radius: 6pt, stroke: 1.2pt + card-border, width: 100%)[
+        #set text(size: 11pt, font: "Consolas", fill: text-color)
+        ```json
+        {
+          "page_id": "45",
+          "bubbles": [
+            {
+              "id": 1,
+              "full_translation": "Khà khà khà",
+              "chunk_meanings": [
+                {
+                  "chunk_id": "1-1",
+                  "type": "từ tượng thanh",
+                  "meaning": "Tiếng cười khà khà"
+                }
+              ]
+            }
+          ]
+        }
+        ```
+      ]
     ]
   )
 ])
@@ -448,20 +489,33 @@
 // SLIDE 15: Kết luận & Hướng phát triển tương lai
 // ==========================================
 #slide("Kết luận & Hướng phát triển", [
-  #grid(
-    columns: (1fr, 1fr),
-    gutter: 20pt,
-    [
-      *Kết quả đạt được:*
-      - Xây dựng thành công *AI Pipeline* tự động hóa dịch thuật truyện tranh.
-      - Áp dụng *RabbitMQ* xử lý bất đồng bộ, giải quyết nút thắt cổ chai.
-      - *Tách biệt* lớp phủ chữ động và ảnh sạch, tối ưu lưu trữ.
-    ],
-    [
-      *Định hướng tương lai:*
-      - Nghiên cứu *fine-tune OCR* nội bộ cho font chữ nghệ thuật/viết tay.
-      - Nâng cấp inpainting với *GAN/Diffusion* cải thiện mỹ thuật bối cảnh.
-      - Triển khai *Autoscaling* AI Worker trên Cloud theo hàng đợi RabbitMQ.
-    ]
-  )
+  #text(size: 17pt)[
+    #grid(
+      columns: (1.1fr, 0.9fr, 1fr),
+      gutter: 12pt,
+      [
+        *Kết quả đạt được:*
+        #list(
+          [Hoàn thiện hệ thống (Next.js, Spring Boot, FastAPI) & *AI Pipeline* bất đồng bộ.],
+          [Tách biệt dữ liệu ảnh/chữ; hỗ trợ tra từ trực tiếp (*Tap-to-Translate*).],
+          [Quy trình test độ tin cậy cao (JUnit 5, JaCoCo, PiTest, pytest).]
+        )
+      ],
+      [
+        *Hạn chế tồn tại:*
+        #list(
+          [Độ trễ xử lý các chương truyện lớn khi tải đồng thời từ nhiều yêu cầu.],
+          [Sai số OCR với font viết tay nghệ thuật và nền tranh phức tạp.]
+        )
+      ],
+      [
+        *Hướng phát triển:*
+        #list(
+          [Fine-tune OCR; nâng cấp Inpainting (GAN/Diffusion).],
+          [Autoscaling AI Worker trên Cloud (GCP/AWS) qua RabbitMQ.],
+          [Phát triển ứng dụng di động & tính năng đọc offline.]
+        )
+      ]
+    )
+  ]
 ])

@@ -1,1 +1,16 @@
-{"page_id": "45", "bubbles": [{"id": 1, "full_translation": "Khà khà khà", "chunk_meanings": [{"chunk_id": "1-1", "type": "từ tượng thanh", "meaning": "Tiếng cười khà khà"}]}]}
+{
+    "page_id": "45",
+    "bubbles": [
+        {
+            "id": 1,
+            "full_translation": "Khà khà khà",
+            "chunk_meanings": [
+                {
+                    "chunk_id": "1-1",
+                    "type": "từ tượng thanh",
+                    "meaning": "Tiếng cười khà khà"
+                }
+            ]
+        }
+    ]
+}
