@@ -59,7 +59,7 @@
     #align(center + horizon)[
       #block(
         width: 100%,
-        inset: (top: 15pt, bottom: 15pt, left: 15pt, right: 15pt),
+        inset: (top: 15pt, bottom: 15pt, left: 70pt, right: 70pt),
         stroke: 2pt + accent-blue,
         radius: 10pt,
         fill: card-bg
@@ -110,7 +110,7 @@
 // SLIDE 1: Slide Mở đầu / Tiêu đề
 // ==========================================
 #title-slide(
-  "Phát Triển Ứng Dụng Đọc Truyện Tranh Hỗ Trợ Đa Ngôn Ngữ Bằng Việc Ứng Dụng AI Tự Động Dịch",
+  "Phát triển ứng dụng đọc truyện tranh hỗ trợ đa ngôn ngữ bằng việc ứng dụng AI tự động dịch",
   "Nghiên cứu và tích hợp các mô hình học sâu (OCR, Inpainting, LLM) và kiến trúc xử lý bất đồng bộ",
   [
     Nguyễn Đình Nguyên (22021141) \
@@ -149,7 +149,7 @@
 // ==========================================
 // SLIDE 3: Phân tích định dạng & Thách thức
 // ==========================================
-#slide("Định dạng truyện tranh & Thách thức AI", [
+#slide("Định dạng truyện tranh & Thách thức kỹ thuật", [
   #grid(
     columns: (1.2fr, 1fr),
     gutter: 15pt,
@@ -189,8 +189,8 @@
 // ==========================================
 #slide("Giải pháp đề xuất & Mô hình AI", [
   #grid(
-    columns: (1fr, 1fr),
-    gutter: 7pt,
+    columns: (1fr, 0.9fr),
+    gutter: 20pt,
     [
       #block(fill: card-bg, inset: 10pt, radius: 6pt, stroke: 1pt + card-border)[
         *Phân tách khung tranh (Panel)*
@@ -232,7 +232,7 @@
         #block(fill: card-bg, inset: 15pt, radius: 8pt, stroke: 1.5pt + card-border)[
           #text(weight: "bold", fill: accent-blue)[Đóng gói JSON Output]
           #v(8pt)
-          #set text(size: 15pt, font: "Consolas", fill: text-color)
+          #set text(size: 15pt, font: "Cascadia Code", fill: text-color)
           ```json
           {
             "page_id": "p001",
@@ -262,7 +262,7 @@
       *Phân nhóm vai trò (Roles):*
       #v(5pt)
       - *Guest*: Duyệt & tìm kiếm (Elasticsearch), đọc thử, trải nghiệm *Tap-to-Translate*.
-      - *User*: Quản lý tủ sách, đồng bộ tiến độ đọc, bình luận phân nhánh.
+      - *User*: Quản lý tủ sách, đồng bộ tiến độ đọc, bình luận.
       - *Admin*: Quản lý nội dung (truyện/chương), kích hoạt *AI Pipeline*, phân quyền.
     ],
     [
@@ -315,7 +315,7 @@
       *Kiến trúc lưu trữ đa tầng (Polyglot):*
       #v(5pt)
       - *PostgreSQL*: Lưu dữ liệu nghiệp vụ quan hệ (Users, Comics, Chapters), quản lý hạn mức AI.
-      - *Elasticsearch*: Tìm kiếm mờ tên truyện đa ngôn ngữ bằng chỉ mục đảo ngược.
+      - *ElasticSearch*: Tìm kiếm mờ (Fuzzy Search) tên truyện đa ngôn ngữ bằng chỉ mục đảo ngược.
       - *Redis & Caffeine*: Cache phân tán/cục bộ tăng tốc phản hồi API.
       - *MinIO*: Object Storage lưu ảnh sạch và JSON metadata.
     ],
@@ -330,8 +330,7 @@
 // ==========================================
 // SLIDE 10: Thiết kế siêu dữ liệu tách biệt (Metadata)
 // ==========================================
-#slide("Thiết kế siêu dữ liệu (Metadata)", [
-  *Ý tưởng cốt lõi*: Không vẽ đè chữ lên ảnh. Lưu trữ metadata JSON riêng biệt.
+#slide("Thiết kế cấu trúc JSON Metadata", [
   #v(5pt)
   #grid(
     columns: (1fr, 1fr),
@@ -340,7 +339,7 @@
       #text(weight: "bold", fill: accent-blue)[original_metadata.json (Tọa độ gốc)]
       #v(4pt)
       #block(fill: card-bg, inset: 10pt, radius: 6pt, stroke: 1.2pt + card-border, width: 100%)[
-        #set text(size: 11pt, font: "Consolas", fill: text-color)
+        #set text(size: 13pt, font: "Cascadia Mono", fill: text-color)
         ```json
         {
           "page_id": "45",
@@ -366,7 +365,7 @@
       #text(weight: "bold", fill: accent-blue)[translation_metadata.json (Bản dịch)]
       #v(4pt)
       #block(fill: card-bg, inset: 10pt, radius: 6pt, stroke: 1.2pt + card-border, width: 100%)[
-        #set text(size: 11pt, font: "Consolas", fill: text-color)
+        #set text(size: 13pt, font: "Cascadia Mono", fill: text-color)
         ```json
         {
           "page_id": "45",
@@ -445,7 +444,7 @@
       *Kiểm thử Frontend & Backend:*
       - *Frontend*: Phân tích tĩnh với ESLint & TypeScript.
       - *Backend*:
-        - JUnit 5 & Mockito: Test đơn vị và tích hợp.
+        - *JUnit 5 & Mockito*: Test đơn vị và tích hợp.
         - *JaCoCo*: Đo lường độ bao phủ code coverage.
         - *PiTest (Mutation Testing)*: Đánh giá chất lượng test case qua lỗi đột biến nhân tạo.
     ],
@@ -468,8 +467,8 @@
     gutter: 15pt,
     [
       *Đo lường định lượng:*
-      - *Thời gian xử lý*: ~11.17s/trang (gồm dịch Gemini API 1.5-3s, còn lại OCR/Inpaint CPU cục bộ).
-      - *Tỷ lệ lỗi ký tự (CER)*: MangaOcr ~6-10%, PaddleOCR ~5-8%.
+      - *Thời gian xử lý*: \~16.22s/trang (gồm dịch Gemini API 5-9s, còn lại OCR/Inpaint CPU cục bộ).
+      - *Tỷ lệ lỗi ký tự (CER)*: MangaOcr \~6-10%, PaddleOCR \~5-8%.
       
       *Đánh giá định tính:*
       - *LaMa Inpainting*: Tái tạo nền sạch, giữ nguyên screentones Manga.
