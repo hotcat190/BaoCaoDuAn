@@ -4,7 +4,7 @@
 
 == Kết quả đạt được
 
-Dự án đã hoàn thành toàn diện các mục tiêu đặt ra ban đầu, xây dựng thành công một hệ thống nền tảng số hóa và dịch thuật truyện tranh tự động hỗ trợ đa ngôn ngữ bằng việc ứng dụng các mô hình học sâu và kiến trúc hướng dịch vụ lai. Các kết quả cụ thể bao gồm:
+Dự án "Phát triển ứng dụng đọc truyện tranh hỗ trợ đa ngôn ngữ bằng việc ứng dụng AI tự động dịch" đã hoàn thành toàn diện các mục tiêu đặt ra ban đầu, xây dựng thành công một hệ thống nền tảng số hóa và dịch thuật truyện tranh tự động hỗ trợ đa ngôn ngữ bằng việc ứng dụng các mô hình học sâu và kiến trúc hướng dịch vụ lai. Các kết quả cụ thể bao gồm:
 
 \- Xây dựng thành công hệ thống AI Pipeline xử lý ảnh truyện tranh bất đồng bộ, tích hợp mô hình YOLO cho phân tách khung tranh (Panel Detection), các kiến trúc học sâu chuyên dụng (MangaOcr, PaddleOCR) cho trích xuất nhận diện chữ văn bản, thuật toán xóa chữ nền Simple-LaMa Inpainting giúp hoàn trả nền tranh tự nhiên, và sử dụng mô hình ngôn ngữ lớn Gemini kết hợp cơ chế Structured Outputs để dịch thuật hàng loạt bám sát ngữ cảnh.
 

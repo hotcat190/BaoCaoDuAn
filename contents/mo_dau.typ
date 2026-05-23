@@ -34,7 +34,7 @@ Dự án kết hợp chặt chẽ giữa nghiên cứu lý thuyết và triển 
 == Bố cục của báo cáo
 Nội dung của báo cáo gồm 4 chương:
 
-\- *Chương 1: Cơ sở lý thuyết và công nghệ áp dụng:* Trình bày tổng quan về các định dạng truyện tranh, lý thuyết nền tảng về AI (OCR, Inpainting, LLM), kiến trúc xử lý bất đồng bộ và lý do lựa chọn các công nghệ triển khai (Next.js, Spring Boot, FastAPI, RabbitMQ).
+\- *Chương 1: Cơ sở lý thuyết và công nghệ áp dụng:* Trình bày tổng quan về các định dạng truyện tranh, các giải pháp dịch truyện hiện tại, lý thuyết nền tảng về AI (OCR, Inpainting, LLM), kiến trúc xử lý bất đồng bộ và lý do lựa chọn các công nghệ triển khai (Next.js, Spring Boot, FastAPI, RabbitMQ).
 
 \- *Chương 2: Phân tích yêu cầu hệ thống:* Xác định các tác nhân, xây dựng biểu đồ Use Case tổng quát, đặc tả chi tiết các luồng nghiệp vụ cốt lõi của người dùng và quản trị viên, cùng các yêu cầu phi chức năng về hiệu năng và bảo mật.
 

@@ -47,17 +47,36 @@
 
   #v(10pt)
 
+  
   #text(size: 14pt)[*Sinh viên thực hiện: Nhóm 7*]
-  #v(2pt)
+  
+  // #v(10pt)  
+  // #table(
+  //   columns: (auto, auto, auto),
+  //   inset: 10pt,
+  //   table.header([*Tên sinh viên*], [*Mã sinh viên*], [*Lớp khóa học*]),
+  //   [*Nguyễn Đình Nguyên*],[*22021141*],[*K67-IT1*],
+  //   [*Hoàng Lê Kim Long*],[*22021216*],[*K67-IT1*],
+  //   [*Hoàng Công Hữu*],[*22021178*],[*K67-IT1*]
+  // )
+  // #v(10pt)
 
+  // #text(size: 14pt)[*Nguyễn Đình Nguyên - 22021141 - Lớp K67-IT1 *] \
+  // #v(4pt)
+  // #text(size: 14pt)[*Hoàng Lê Kim Long - 22021216 - Lớp K67-IT1*] \
+  
+  // #text(size: 14pt)[*Hoàng Công Hữu - 22021178 - Lớp K67-IT1*]
+  // #v(5pt)
+  #v(2pt)
   #text(size: 14pt)[*Nguyễn Đình Nguyên - 22021141*] \
-  #v(4pt)
+  
   #text(size: 14pt)[*Hoàng Lê Kim Long - 22021216*] \
   
   #text(size: 14pt)[*Hoàng Công Hữu - 22021178*]
   #v(5pt)
 
   #text(size: 14pt)[*Lớp: K67-IT1*]
+  // #text(size: 14pt)[*Lớp học phần: INT 3509*]
 ]
 #v(1fr)
 #align(center, {

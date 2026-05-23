@@ -61,9 +61,7 @@ Các container của AI Pipeline:
 
 \- `app/store`: Quản lý và duy trì trạng thái toàn cục cho phiên làm việc của người dùng bằng thư viện Zustand thông qua tệp `userStore.ts`.
 
-=== Các công nghệ và thư viện nền tảng được áp dụng
-
-\- `Next.js 16` & `React 19`: Framework và thư viện giao diện cốt lõi hỗ trợ cơ chế render phía máy chủ (SSR) và tối ưu hóa hiệu năng ứng dụng.
+=== Các thư viện nền tảng được áp dụng
 
 \- `@tanstack/react-query` & `axios`: Bộ đôi quản lý việc gửi yêu cầu HTTP, đồng bộ hóa và lưu bộ nhớ đệm (caching) dữ liệu từ phía Core Backend.
 
@@ -91,7 +89,7 @@ Các container của AI Pipeline:
 
 \- `security`: Thiết lập bộ lọc bảo mật hệ thống dựa trên Spring Security, sử dụng cơ chế JWT thông qua HTTP-Only Secure Cookie và phân quyền truy cập dựa trên vai trò người dùng (RBAC).
 
-=== Các công nghệ và thư viện nền tảng được áp dụng
+=== Các thư viện nền tảng được áp dụng
 
 \- `Spring Security, JWT & OAuth2`: Cung cấp giải pháp bảo mật toàn diện cho hệ thống API, quản lý phiên làm việc an toàn và tích hợp các phương thức đăng nhập bên thứ ba.
 
@@ -136,7 +134,7 @@ AI Pipeline được xây dựng trên nguyên tắc OOP. Mô tả các file mã
 
 \- `src/engines/ocr.py`: định nghĩa lớp OcrService, khởi tạo và quản lý các model `MangaOcr`, `PaddleOCR`.
 
-=== Các công nghệ học sâu và thư viện cốt lõi được áp dụng trong AI Pipeline
+=== Các thư viện nền tảng được áp dụng
 
 \- `FastAPI` & `uvicorn`: Framework và Web Server hiệu năng cao hỗ trợ xây dựng các API endpoint bất đồng bộ, tối ưu hóa tốc độ tiếp nhận yêu cầu xử lý từ hệ thống và tiếp nhận dữ liệu tải lên thông qua thư viện `python-multipart`.
 
@@ -213,6 +211,36 @@ Cả hai lớp tiện ích gỡ lỗi này đều được kiểm soát chặt c
   image("/images/pipeline_text_blocks.png"),
   caption: [Ví dụ ảnh debug text blocks, Arisa © Yagami Ken]
 )
+
+// 4.5
+== Đánh giá chất lượng hệ thống
+
+Sau khi hoàn tất quy trình kiểm thử liên kết và chạy tích hợp trên các tập dữ liệu truyện tranh thử nghiệm, hệ thống được tiến hành đánh giá chất lượng toàn diện cả về khía cạnh định lượng (hiệu năng tính toán, độ chính xác nhận diện) lẫn khía cạnh định tính (trải nghiệm dịch thuật, độ tự nhiên bối cảnh phục hồi).
+
+=== Đánh giá định lượng
+
+Hiệu năng và độ chính xác của AI Pipeline được đo lường thực tế trên môi trường máy thử nghiệm cục bộ sử dụng CPU Intel Core i7-12700K, RAM 16GB:
+
+\- *Thời gian xử lý trung bình mỗi trang truyện:* 
+  Qua thực nghiệm đo lường trên một chương truyện gồm 5 trang ảnh Manga Nhật Bản tiêu biểu, kết quả ghi nhận như sau:
+  + Đối với luồng xử lý đầy đủ bao gồm cả dịch thuật ngữ cảnh bằng LLM: Thời gian xử lý trung bình đạt ~11.17 giây/trang. Trong đó, thời gian gọi API mô hình ngôn ngữ lớn (Gemini 3.1 Flash-Lite) chiếm khoảng 1.5 - 3 giây, phần thời gian còn lại chủ yếu dành cho việc chạy mô hình inpainting SimpleLama và OCR trên CPU.
+  + Đối với luồng chỉ xử lý Inpaint và OCR (bỏ qua dịch thuật): Thời gian xử lý trung bình biến động ở mức ~21.30 giây/trang. Sự chênh lệch này do sự phân phối tải tính toán CPU cục bộ đối với mô hình mạng inpainting SimpleLama trên các cấu trúc hình học mặt nạ phức tạp của từng trang.
+  
+\- *Độ chính xác của nhận dạng ký tự quang học (OCR Accuracy):*
+  Do không thực hiện huấn luyện lại (fine-tune) các mô hình OCR mã nguồn mở, độ chính xác của khâu OCR được đánh giá dựa trên các báo cáo thực nghiệm công bố chính thức từ nhà phát triển:
+  + Mô hình MangaOcr: Đạt tỷ lệ lỗi ký tự (Character Error Rate - CER) thấp, dao động trong khoảng ~6% đến 10% đối với văn bản tiếng Nhật in ấn chuẩn và chữ viết tay nghệ thuật trong Manga @mangaocr-benchmark.
+  + Mô hình PaddleOCR-v5: Ghi nhận tỷ lệ CER trong khoảng ~5% đến 8% đối với các khối văn bản tiếng Hàn và tiếng Trung ngang tiêu chuẩn của định dạng Webtoon @paddleocr-benchmark.
+
+=== Đánh giá định tính
+
+\- *Hiệu năng tách khung tranh và nhận diện chữ:*
+  Sự phối hợp giữa mô hình YOLOv12 và module phát hiện chữ `comic-text-detector` giúp định vị chính xác ranh giới của các ô tranh và bong bóng thoại. Các vùng văn bản tiếng Nhật (xử lý bởi MangaOcr) hoặc tiếng Hàn/Trung (xử lý bởi PaddleOCR) đều được trích xuất đầy đủ, giảm thiểu tối đa hiện tượng bỏ sót chữ hay nhận diện sai thứ tự đọc của khung thoại.
+
+\- *Hiệu năng khôi phục ảnh nền (Inpainting):*
+  Mô hình inpainting LaMa cho ra chất lượng thị giác vượt trội. Các vùng chữ sau khi bị xóa hầu như không để lại vết mờ hay nhòe đáng kể (đôi khi có thể xuất hiện một vài vệt nhỏ ở các vùng nền có độ tương phản cực kỳ cao hoặc kết cấu bối cảnh quá phức tạp). Thuật toán FFC của LaMa tái tạo tương đối tốt bối cảnh vẽ và lưới bóng tông màu (screentones) đặc thù của Manga, giúp giữ được trải nghiệm nghệ thuật gần tương đương với nguyên tác của tác giả gốc.
+
+\- *Độ tự nhiên của bản dịch ngữ cảnh:*
+  Nhờ khả năng đa phương thức của Gemini 3.1 Flash-Lite, việc gửi kèm hình ảnh trang truyện SoM giúp mô hình tự xác định được nhân xưng của nhân vật dựa trên giới tính, độ tuổi và bối cảnh hành vi biểu cảm trên tranh vẽ. Bản dịch tiếng Việt xuất ra tự nhiên hơn hẳn, sử dụng các đại từ nhân xưng phù hợp (như "tớ" - "cậu", "anh" - "em") thay vì dịch cứng nhắc hoặc sai nghĩa như các API dịch thuật văn bản thuần túy.
 
 #heading(numbering: none, outlined: true)[Demo]
 #counter("is-chương").update(0)

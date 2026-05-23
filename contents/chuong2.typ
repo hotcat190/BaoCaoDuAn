@@ -48,20 +48,20 @@ Trong giai đoạn phân tích yêu cầu chức năng, việc xác định chí
 
 \- *Độc giả hệ thống (Registered User):* Là người dùng đã hoàn tất quy trình khởi tạo tài khoản và được hệ thống xác thực thông tin mã khóa. Bên cạnh việc kế thừa toàn bộ năng lực tương tác của độc giả vãng lai, tác nhân này được hệ thống mở rộng các phân hệ tính năng cá nhân hóa chuyên sâu, bao gồm: quản lý tủ sách cá nhân, lưu trữ tự động tiến trình và vị trí đọc thời gian thực, gửi bình luận và tương tác cộng đồng.
 
-\- *Quản trị viên (Administrator):* Là nhân sự vận hành có đặc quyền cao nhất, chịu trách nhiệm quản lý toàn bộ vòng đời của nội dung truyện và giám sát hạ tầng kỹ thuật. Quyền hạn của tác nhân này bao gồm: quản trị danh mục dữ liệu, thực hiện tải lên các tập tin hình ảnh chương mới, kích hoạt và kiểm soát luồng hoạt động của đường ống tiền xử lý dữ liệu AI Pipeline. Ngoài ra, Quản trị viên còn nắm giữ vai trò điều phối cấu hình tài nguyên hệ thống, kiểm duyệt nội dung đóng góp và theo dõi các chỉ số hiệu năng vận hành thông qua bảng điều khiển trung tâm.
+\- *Quản trị viên (Administrator):* Là nhân sự vận hành có đặc quyền cao nhất, chịu trách nhiệm quản lý toàn bộ vòng đời của nội dung truyện và giám sát hạ tầng kỹ thuật. Quyền hạn của tác nhân này bao gồm: quản trị danh mục dữ liệu, thực hiện tải lên các tập tin hình ảnh chương mới, kích hoạt và kiểm soát luồng hoạt động của luồng AI tiền xử lý dữ liệu. Ngoài ra, Quản trị viên còn nắm giữ vai trò điều phối cấu hình tài nguyên hệ thống, kiểm duyệt nội dung đóng góp và theo dõi các chỉ số hiệu năng vận hành thông qua bảng điều khiển trung tâm.
 
 == Biểu đồ Use Case tổng quát
 
-Sau khi tiến hành phân rã chức năng hệ thống dựa trên phạm vi quyền hạn của từng tác nhân đã xác định, các yêu cầu chức năng thực tế của hệ thống được tổng hợp thành ba phân hệ chính dưới đây. Danh sách này tập trung phản ánh các Use Case đã được thiết kế và cài đặt thực tế trong ứng dụng nhằm đảm bảo tính tinh gọn và tối ưu hóa đường ống xử lý.
+Sau khi tiến hành phân rã chức năng hệ thống dựa trên phạm vi quyền hạn của từng tác nhân đã xác định, các yêu cầu chức năng thực tế của hệ thống được tổng hợp thành ba nhóm chính dưới đây. Danh sách này tập trung phản ánh các Use Case đã được thiết kế và cài đặt thực tế trong ứng dụng nhằm đảm bảo tính tinh gọn và tối ưu hóa luồng xử lý.
 
-=== Phân hệ Đọc truyện và Tương tác AI
+=== Nhóm Đọc truyện và Tương tác AI
 \- *UC_01:* Xem danh sách và tìm kiếm truyện
 
 \- *UC_02:* Đọc truyện
 
 \- *UC_03:* Tra từ vựng qua ảnh
 
-=== Phân hệ Quản lý tài khoản và Cá nhân hóa
+=== Nhóm Quản lý tài khoản và Cá nhân hóa
 \- *UC_04:* Đăng ký tài khoản mới
 
 \- *UC_05:* Đăng nhập và Đăng xuất
@@ -72,10 +72,10 @@ Sau khi tiến hành phân rã chức năng hệ thống dựa trên phạm vi q
 
 \- *UC_08:* Gửi bình luận và tương tác cộng đồng
 
-=== Phân hệ Quản trị nội dung và Vận hành AI Pipeline
+=== Nhóm Quản trị nội dung và Vận hành AI Pipeline
 \- *UC_09:* Quản lý danh mục và thông tin cấu trúc truyện
 
-\- *UC_10:* Tải lên chương truyện mới và kích hoạt đường ống tiền xử lý AI (OCR, Inpainting, LLM Translation)
+\- *UC_10:* Tải lên chương truyện mới và kích hoạt AI Pipeline.
 
 #[
   #show figure: set block(width: 73%)
@@ -92,7 +92,7 @@ Sau khi tiến hành phân rã chức năng hệ thống dựa trên phạm vi q
 
 Mỗi cấu trúc Use Case trong phân hệ sẽ được chuẩn hóa đồng bộ theo cấu trúc bảng hai cột tiêu chuẩn bao gồm các thuộc tính cụ thể: Mã Use Case, Tiêu đề, Tác nhân chính, Mô tả, Tiền điều kiện, Tác nhân kích hoạt, Luồng xử lý chính, Luồng rẽ nhánh, Luồng ngoại lệ, Hậu điều kiện, Tài liệu liên quan, Ghi chú.
 
-=== Phân hệ Đọc truyện và Tương tác AI
+=== Nhóm Đọc truyện và Tương tác AI
 
 ==== UC_01: Xem danh sách và tìm kiếm truyện
 
@@ -232,7 +232,7 @@ Mỗi cấu trúc Use Case trong phân hệ sẽ được chuẩn hóa đồng b
   )
 )
 
-=== Phân hệ Quản lý tài khoản và Cá nhân hóa
+=== Nhóm Quản lý tài khoản và Cá nhân hóa
 
 ==== UC_04: Đăng ký tài khoản mới
 #figure(
@@ -467,7 +467,7 @@ Mỗi cấu trúc Use Case trong phân hệ sẽ được chuẩn hóa đồng b
     [Ghi chú], [Không có.]
   )
 )
-=== Phân hệ Quản trị nội dung và Vận hành AI Pipeline
+=== Nhóm Quản trị nội dung và Vận hành AI Pipeline
 
 ==== UC_09: Quản lý danh mục truyện
 #figure(

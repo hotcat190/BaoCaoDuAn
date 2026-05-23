@@ -101,22 +101,35 @@ Koharu @koharu là một giải pháp hiện đại ứng dụng Machine Learnin
 Từ các phân tích trên, dự án hướng tới việc kế thừa khả năng xử lý Pipeline khép kín của các giải pháp tự động, nhưng cải tiến bằng cách tách rời các service theo kiến trúc Microservices kết hợp hàng chờ Message Broker nhằm tối ưu hiệu năng tối đa cho môi trường đa nền tảng.
 
 // 1.3
-== Công nghệ Trí tuệ nhân tạo (AI) trong xử lý đa phương tiện
+== Công nghệ Trí tuệ nhân tạo (AI) sử dụng trong hệ thống
 
-Hệ thống đề xuất sử dụng kết hợp các mô hình học sâu chuyên dụng cho từng tác vụ trong đường ống xử lý hình ảnh và ngôn ngữ, bao gồm ba thành phần cốt lõi.
+Hệ thống đề xuất sử dụng kết hợp các mô hình học sâu chuyên dụng cho từng tác vụ trong đường ống xử lý hình ảnh và ngôn ngữ, bao gồm bốn thành phần cốt lõi.
+
+=== Phân tách khung tranh (Panel Segmentation)
+Trong truyện tranh, bố cục các ô tranh (panels) đóng vai trò quyết định nhịp kể chuyện. Việc phân tách chính xác ranh giới các ô tranh là tiền đề để sắp xếp các khối văn bản theo đúng thứ tự đọc (reading order). Hệ thống sử dụng mô hình học sâu chuyên dụng:
+
+\- *Mô hình YOLOv12* @yolov12: Kiến trúc YOLOv12 tối ưu hóa việc trích xuất đặc trưng đa tầng và cơ chế chú ý (attention mechanism) cải tiến, cho phép phát hiện cực kỳ nhanh và chính xác ranh giới của các ô tranh. Kể cả với các trang truyện Manga có cấu trúc ô tranh bất đối xứng phức tạp, đè lấp lên nhau, hoặc các trang Webtoon có khoảng trống viền cực lớn, YOLOv12 vẫn phân tách các ô tranh hiệu quả mà không cần các thuật toán xử lý hình học heurictic thủ công.
 
 === Nhận dạng ký tự quang học (OCR) trên cấu trúc hình ảnh phức tạp
-Đối với văn bản nằm trong truyện tranh, các giải pháp OCR thông thường (như Tesseract @tesseract) thường cho kết quả rất kém do chữ có nhiều định dạng nghệ thuật, đổ bóng và nền ảnh phức tạp. Do đó, hệ thống phân tách thành hai nhánh xử lý:
+Đối với văn bản nằm trong truyện tranh, các giải pháp OCR thông thường (như Tesseract @tesseract) thường cho kết quả rất kém do chữ có nhiều định dạng nghệ thuật, đổ bóng và nền ảnh phức tạp. Do đó, hệ thống phân tách thành hai nhánh xử lý chuyên biệt:
 
-\- Với định dạng Manga (chữ viết dọc, font chữ Nhật đặc thù): Sử dụng mô hình `comic-text-detector` @comic-text-detector để định vị chính xác tọa độ các bounding box của khung thoại, kết hợp với `MangaOcr` @mangaocr - mô hình End-to-End chuyên biệt được tối ưu cho việc nhận diện chữ tiếng Nhật viết dọc.
+\- *Định dạng Manga (chữ viết dọc, font chữ Nhật đặc thù):* Hệ thống kết hợp hai mô hình:
+  + Mô hình `comic-text-detector` @comic-text-detector: Được phát triển dựa trên mạng dò tìm văn bản DBNet, mô hình này được huấn luyện đặc thù trên tập dữ liệu truyện tranh để định vị chính xác tọa độ các bounding box của cả khung thoại (bubbles) lẫn các cụm chữ tự do (onomatopoeia), bỏ qua nhiễu nền tranh.
+  + Mô hình `MangaOcr` @mangaocr: Mô hình dạng End-to-End sử dụng kiến trúc Transformer (ViT cho Vision Encoder và RoBERTa cho Text Decoder). MangaOcr vượt trội hoàn toàn so với các OCR truyền thống nhờ khả năng nhận diện tiếng Nhật viết dọc, xử lý xuất sắc các font chữ cách điệu, độ tương phản thấp hoặc chữ viết tay nghệ thuật phổ biến trong Manga.
 
-\- Với định dạng Webtoon (chữ viết ngang, nền màu phức tạp): Sử dụng mô hình `PaddleOCR-v5` @paddleocr nhờ khả năng nhận diện chữ đa hướng (Rotated Text Detection) mạnh mẽ và tốc độ trích xuất chuỗi ký tự tối ưu trên các dòng máy chủ hiệu năng trung bình.
+\- *Định dạng Webtoon (chữ viết ngang, nền màu phức tạp):* Sử dụng mô hình `PaddleOCR-v5` @paddleocr: Nhờ tích hợp thuật toán dò chữ đa hướng (Rotated Text Detection) mạnh mẽ và cơ chế nhận diện từ ngữ theo từ điển ngôn ngữ tối ưu (PP-OCRv5), mô hình trích xuất chuỗi ký tự (tiếng Hàn, tiếng Trung) với độ chính xác cao trên các dòng máy chủ có hiệu năng trung bình.
 
 === Mô hình sinh hình ảnh và kỹ thuật phục hồi nền (Image Inpainting)
-Sau khi trích xuất được văn bản gốc, để chuẩn bị không gian chèn chữ dịch mới mà không làm hỏng trải nghiệm thị giác của người đọc, hệ thống áp dụng mô hình mạng học sâu `LaMa` (Large Mask Inpainting) @lama. Mô hình này sử dụng các lớp Fast Fourier Convolution (FFC) cho phép hiểu và khôi phục các kết cấu đồ họa có tần suất lặp lại cao, xóa sạch chữ gốc và tự động bù đắp các chi tiết bối cảnh bị che khuất một cách tự nhiên nhất.
+Sau khi trích xuất được văn bản gốc, để chuẩn bị không gian chèn chữ dịch mới mà không làm hỏng trải nghiệm thị giác của người đọc, hệ thống cần xóa chữ cũ và tái tạo lại chi tiết bối cảnh bị che khuất. Hệ thống áp dụng:
+
+\- *Mô hình mạng học sâu LaMa (Large Mask Inpainting)* @lama: Sử dụng các lớp Fast Fourier Convolution (FFC) làm cốt lõi. Khác với các lớp tích chập CNN thông thường chỉ có trường thụ cảm (receptive field) cục bộ, FFC cho phép mô hình thu nhận thông tin bối cảnh toàn cục ngay từ những lớp mạng đầu tiên. Nhờ đó, LaMa có thể tự động khôi phục các cấu trúc đồ họa phức tạp phía sau bong bóng thoại như các đường nét vẽ bối cảnh, cấu trúc lưới bóng (screentones) và họa tiết nền một cách tự nhiên, không bị nhòe mờ.
 
 === Mô hình ngôn ngữ lớn (LLM) trong dịch thuật ngữ cảnh
-Thay vì sử dụng các công cụ dịch thuật theo từng dòng thô sơ, hệ thống tích hợp mô hình ngôn ngữ lớn `gemini-3.1-flash-lite` @gemini-flash-lite. Việc ứng dụng LLM cho phép hệ thống truyền kèm siêu dữ liệu (metadata) về ngữ cảnh của chương truyện. Nhờ đó, văn bản dịch đầu ra không bị rời rạc mà giữ được mạch văn văn học, hiểu được các tiếng lóng và phân biệt được đại từ nhân xưng phù hợp với văn hóa Đông Á.
+Thay vì sử dụng các công cụ dịch thuật theo từng câu thô sơ (như Google Translate), hệ thống tích hợp mô hình ngôn ngữ lớn:
+
+\- *Mô hình Gemini 3.1 Flash-Lite* @gemini-flash-lite: Việc ứng dụng mô hình LLM đa phương thức (Multimodal) mang lại hai lợi ích kỹ thuật đột phá:
+  + Dịch thuật có ngữ cảnh thị giác (Visual Context-Aware Translation): Bằng cách truyền đồng thời ảnh Set-of-Mark (SoM) @set-of-mark (ảnh trang truyện được vẽ các ô chữ màu nổi bật) và chuỗi chữ gốc vào Gemini, mô hình có thể tự do đối chiếu hình ảnh để nắm bắt sắc thái biểu cảm nhân vật, giới tính và mối quan hệ xã hội. Điều này giúp bản dịch tiếng Việt/tiếng Anh sử dụng đại từ nhân xưng chuẩn xác (ví dụ: "cậu" - "tớ", "ta" - "ngươi") mà dịch thuật dạng văn bản thuần túy không thể phân biệt được.
+  + Định dạng đầu ra có cấu trúc (Structured Outputs): Nhờ cơ chế ràng buộc JSON Schema chặt chẽ của API Gemini, dữ liệu trả về luôn tuân thủ cấu trúc Pydantic đã định nghĩa, đảm bảo các phân đoạn từ (chunks) và bản dịch liên kết chính xác với tọa độ pixel của chữ gốc mà không xảy ra lỗi phân tách dữ liệu ở Backend.
 
 //1.4.
 == Tổng quan về các công cụ và framework sử dụng
@@ -135,7 +148,7 @@ Thay vì sử dụng các công cụ dịch thuật theo từng dòng thô sơ, 
 
 \- *Redis (High-Speed Caching):* Lớp lưu trữ dữ liệu trên bộ nhớ RAM, được sử dụng để tối ưu tốc độ truy xuất các thông tin có tần suất đọc cao như tiến trình đọc của người dùng, bảng xếp hạng truyện và quản lý cơ chế giới hạn tần suất gọi API (Rate Limiting). @redis
 
-\- *Docker (Containerization Platform):* Nền tảng đóng gói mã nguồn và tất cả các thư viện phụ thuộc thành các vùng chứa (Container) độc lập, giúp nhất quán hóa môi trường vận hành từ giai đoạn phát triển cục bộ đến khi triển khai thực tế. Trong hệ thống, Docker đóng vai trò cốt lõi để cô lập và quản lý các phân hệ đa nền tảng bao gồm máy chủ Spring Boot, đường ống xử lý AI bằng Python (FastAPI) cùng các cụm dịch vụ lưu trữ, tìm kiếm, đảm bảo khả năng mở rộng linh hoạt theo kiến trúc Microservices. @docker
+\- *Docker (Containerization Platform):* Nền tảng đóng gói mã nguồn và tất cả các thư viện phụ thuộc thành các vùng chứa (Container) độc lập, giúp nhất quán hóa môi trường vận hành từ giai đoạn phát triển cục bộ đến khi triển khai thực tế. Trong hệ thống, Docker đóng vai trò cốt lõi để cô lập và quản lý các dịch vụ đa nền tảng bao gồm máy chủ Spring Boot, dịch vụ xử lý AI bằng Python (FastAPI) cùng các cụm dịch vụ lưu trữ, tìm kiếm, đảm bảo khả năng mở rộng linh hoạt theo kiến trúc Microservices. @docker
 
 //1.5.
 == Kiến trúc Microservices và Xử lý bất đồng bộ

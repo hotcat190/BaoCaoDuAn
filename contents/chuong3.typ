@@ -296,7 +296,7 @@ Bảng email_verification_otps thực hiện chức năng lưu trữ và kiểm 
 
 == Thiết kế API
 
-Mục này xác định chi tiết các API và quy chuẩn cấu trúc dữ liệu trao đổi giữa bốn thành phần cốt lõi trong hệ thống: Next.js Client, Spring Boot Backend, hệ thống hàng chờ thông điệp RabbitMQ và AI Worker Pipeline (FastAPI). Việc chuẩn hóa cấu trúc dữ liệu tại các điểm giao tiếp này bảo đảm tính toàn vẹn dữ liệu, khả năng co giãn độc lập của các dịch vụ và là cơ sở kỹ thuật để xây dựng các biểu đồ tuần tự (Sequence Diagrams) cho hệ thống.
+Mục này xác định chi tiết các API và quy chuẩn cấu trúc dữ liệu trao đổi giữa bốn thành phần cốt lõi trong hệ thống: Next.js Client, Spring Boot Backend, hệ thống hàng chờ thông điệp RabbitMQ và AI Pipeline (FastAPI). Việc chuẩn hóa cấu trúc dữ liệu tại các điểm giao tiếp này bảo đảm tính toàn vẹn dữ liệu, khả năng co giãn độc lập của các dịch vụ và là cơ sở kỹ thuật để xây dựng các biểu đồ tuần tự (Sequence Diagrams) cho hệ thống.
 
 === Các giao diện REST API của hệ thống Core Backend
 
@@ -667,19 +667,19 @@ Các luồng tương tác người dùng gồm tìm kiếm, gửi bình luận, 
 
 #figure(
   image("/images/activity_diagrams/cropped-ai_pipeline.svg"),
-  caption: [Sơ đồ hoạt động mô tả đường ống AI Worker Pipeline (A)]
+  caption: [Sơ đồ hoạt động mô tả AI Pipeline (A)]
 )
 
 #figure(
   image("/images/activity_diagrams/cropped-ai_pipeline (1).svg"),
-  caption: [Sơ đồ hoạt động mô tả đường ống AI Worker Pipeline (B)]
+  caption: [Sơ đồ hoạt động mô tả AI Pipeline (B)]
 )
 #pagebreak()
 
 
 == Thiết kế Giao diện Người dùng (UI/UX Layout Design)
 
-Hệ thống Next.js Frontend được tổ chức theo kiến trúc hướng thành phần, phân tách rõ ràng giữa các khối giao diện dùng chung và các khối giao diện đặc thù theo từng trang nghiệp vụ.
+Hệ thống Next.js Frontend được tổ chức theo kiến trúc hướng thành phần, phân tách rõ ràng giữa các khối giao diện dùng chung và các giao diện đặc thù theo từng trang nghiệp vụ.
 
 === Thành phần cấu trúc cơ sở:
  

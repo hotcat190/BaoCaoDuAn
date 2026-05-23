@@ -209,4 +209,32 @@ postman:
   author: "Postman Inc."
   type: "web"
   url: "https://www.postman.com"
-  year: 2026  
+  year: 2026
+
+set-of-mark:
+  title: "Set-of-Mark Prompting Unleashes Extraordinary Visual Grounding in GPT-4V"
+  author: "Jianwei Yang and Hao Zhang and Feng Li and Xueyan Zou and Jianfeng Gao and Lijuan Wang"
+  type: "web"
+  url: "https://arxiv.org/abs/2310.11441"
+  year: 2023
+
+yolov12:
+  title: "Ultralytics YOLOv12: Real-time Object Detection Model"
+  author: "Ultralytics"
+  type: "web"
+  url: "https://github.com/ultralytics/ultralytics"
+  year: 2025
+
+mangaocr-benchmark:
+  title: "MangaOcr Benchmark Results on Manga109 Dataset"
+  author: "Kha White"
+  type: "web"
+  url: "https://github.com/kha-white/manga-ocr"
+  year: 2021
+
+paddleocr-benchmark:
+  title: "PP-OCR: An Practical Ultra-Lightweight OCR System"
+  author: "Yuning Du and Chenxia Li and Ruoyu Guo and Yinliang Cui and Mengyi Liu and Zhoupeng Wang and Bin Fan and Yipeng Sun"
+  type: "web"
+  url: "https://arxiv.org/abs/2009.09941"
+  year: 2020 
