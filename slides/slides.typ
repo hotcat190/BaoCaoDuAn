@@ -78,7 +78,7 @@
           #text(size: 13pt, fill: text-color)[
             *Sinh viên thực hiện:* \
             #author \
-            *Đơn vị:* #institution
+            *Ngành:* #institution
           ]
         ],
         align(top + left)[
@@ -118,7 +118,7 @@
     Hoàng Công Hữu (22021178) \
   ],
   [TS. Lê Hồng Hải],
-  "Khoa Công nghệ thông tin"
+  "Công nghệ thông tin"
 )
 
 // ==========================================
@@ -139,7 +139,7 @@
       *Mục tiêu cốt lõi:*
       #list(
         [Tự động hóa quy trình dịch thuật bằng *Pipeline AI bất đồng bộ*.],
-        [*Tách biệt* lớp ảnh nền sạch (Cleaned Background) và siêu dữ liệu văn bản dịch.],
+        [*Tách biệt* lớp ảnh nền sạch (Cleaned Background) và văn bản dịch.],
         [Tính năng tương tác *Tap-to-Translate* hỗ trợ tra từ vựng theo ngữ cảnh khi đọc.]
       )
     ]
@@ -185,35 +185,164 @@
 ])
 
 // ==========================================
-// SLIDE 4: Giải pháp đề xuất & Mô hình AI sử dụng
+// SLIDE 4: Giải pháp đề xuất: Số hóa cấu trúc trang truyện
 // ==========================================
-#slide("Giải pháp đề xuất & Mô hình AI", [
+#slide("Giải pháp đề xuất: Số hóa cấu trúc trang truyện", [
   #grid(
-    columns: (1fr, 0.9fr),
+    columns: (1fr, 1.2fr),
     gutter: 20pt,
     [
-      #block(fill: card-bg, inset: 10pt, radius: 6pt, stroke: 1pt + card-border)[
-        *Phân tách khung tranh (Panel)*
-        - Sử dụng *YOLOv12*: trích xuất đặc trưng đa tầng và cơ chế chú ý cải tiến, nhận diện ranh giới ô tranh bất đối xứng rất nhanh và chính xác.
-      ]
-      #block(fill: card-bg, inset: 10pt, radius: 6pt, stroke: 1pt + card-border)[
-        *Nhận dạng chữ (OCR)*
-        - *Manga*: DBNet (`comic-text-detector`) định vị bong bóng thoại + `MangaOcr` nhận diện chữ dọc nghệ thuật.
-        - *Webtoon*: `PaddleOCR-v5` nhận diện ngang đa hướng.
-      ]
+      *Tư tưởng cốt lõi:*
+      #list(
+        [Không nhúng cứng bản dịch vào các điểm ảnh của file đồ họa.],
+        [Phân tách triệt để giữa *hình ảnh nền sạch* (Cleaned Background) và *lớp chữ dịch động* (Dynamic Text Layer).],
+        [Client render động văn bản dịch đè lên tọa độ pixel tương ứng.]
+      )
     ],
-    [      
+    [
       #block(fill: highlight-bg, inset: 12pt, radius: 8pt, stroke: 1.5pt + highlight-border)[
-        *Xóa chữ & Phục hồi ảnh nền (Inpainting)*
-        - *Mạng học sâu LaMa*: Sử dụng *Fast Fourier Convolution (FFC)* để có trường thụ cảm toàn cục.
-        - *Kết quả*: Tự động khôi phục cấu trúc lưới bóng (screentone) và họa tiết nền tự nhiên mà không bị nhòe mờ.
+        *Quy trình tự động hóa với AI Pipeline:*
+        1. *Phân tách ô tranh (Panels)* $arrow.r$ Xác định ranh giới kể chuyện.
+        2. *Dò & nhận dạng chữ (OCR)* $arrow.r$ Trích xuất văn bản gốc.
+        3. *Xóa chữ phục hồi nền (Inpainting)* $arrow.r$ Tạo ảnh sạch chữ.
+        4. *Dịch thuật ngữ cảnh (LLM)* $arrow.r$ Bản dịch tự nhiên.
       ]
     ]
   )
 ])
 
 // ==========================================
-// SLIDE 5: Dịch thuật ngữ cảnh với Gemini LLM
+// SLIDE 5: Công nghệ AI: Nhận diện khung tranh (YOLOv12)
+// ==========================================
+#slide("Công nghệ AI: Nhận diện khung tranh (YOLOv12)", [
+  #grid(
+    columns: (1.2fr, 1fr),
+    gutter: 20pt,
+    [
+      *Lý do lựa chọn YOLOv12:*
+      - Trích xuất đặc trưng đa tầng và cơ chế chú ý (attention mechanism) cải tiến.
+      - Nhận diện ranh giới ô tranh bất đối xứng rất nhanh và chính xác.
+      
+      *Vai trò trong Pipeline:*
+      - Phân tách trang truyện thành các khung tranh (panels) độc lập.
+      - Sắp xếp thứ tự đọc (Reading Order - XY Cut) hoạt động chuẩn xác trên Manga và Webtoon.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/pipeline_panels_sorted.png", width: 100%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Kết quả phân tách ô tranh bằng YOLOv12]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 6: Công nghệ AI: Định vị vùng chữ (comic-text-detector)
+// ==========================================
+#slide("Công nghệ AI: Định vị vùng chữ (comic-text-detector)", [
+  #grid(
+    columns: (1fr, 1.2fr),
+    gutter: 20pt,
+    [
+      *Đặc điểm mô hình:*
+      - Dựa trên mạng dò tìm văn bản *DBNet (Differentiable Binarization)*.
+      - Được huấn luyện đặc thù trên tập dữ liệu truyện tranh.
+      
+      *Ưu điểm:*
+      - Định vị chính xác tọa độ các bounding box của bong bóng thoại (bubbles) và các cụm chữ tự do (onomatopoeia).
+      - Bỏ qua các chi tiết gây nhiễu trên nền tranh vẽ.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/pipeline_text_blocks.png", height: 80%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Kết quả dò tìm vùng chữ bằng comic-text-detector]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 7: Công nghệ AI: Nhận diện chữ dọc Manga (MangaOcr)
+// ==========================================
+#slide("Công nghệ AI: Nhận diện chữ dọc Manga (MangaOcr)", [
+  #grid(
+    columns: (1.2fr, 1fr),
+    gutter: 20pt,
+    [
+      *Kiến trúc End-to-End:*
+      - Vision Encoder: *ViT (Vision Transformer)*.
+      - Text Decoder: *RoBERTa (Transformer-based)*.
+      
+      *Thế mạnh vượt trội:*
+      - Nhận diện ký tự tiếng Nhật viết dọc nghệ thuật.
+      - Xử lý xuất sắc các font chữ cách điệu, độ tương phản thấp hoặc chữ viết tay (handwritten) phổ biến trong Manga.
+      - Tỷ lệ lỗi ký tự (CER) thấp (~6-10%).
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/nekodama_002.jpg", height: 80%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Manga Nhật Bản với chữ viết dọc]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 8: Công nghệ AI: Nhận diện chữ ngang Webtoon (PaddleOCR-v5)
+// ==========================================
+#slide("Công nghệ AI: Nhận diện chữ ngang Webtoon (PaddleOCR-v5)", [
+  #grid(
+    columns: (1fr, 1.2fr),
+    gutter: 20pt,
+    [
+      *Kiến trúc và Thuật toán:*
+      - Tích hợp thuật toán dò chữ đa hướng (*Rotated Text Detection*).
+      - Cơ chế nhận diện từ ngữ theo từ điển ngôn ngữ tối ưu (PP-OCRv5).
+      
+      *Lợi thế thực tiễn:*
+      - Phù hợp với chữ viết ngang của tiếng Hàn (Manhwa), tiếng Trung (Manhua).
+      - Độ chính xác cao, thời gian xử lý nhanh trên các máy chủ có hiệu năng trung bình.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/msedge_xjHnK9kcWs.png", height: 80%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Webtoon Hàn Quốc với chữ viết ngang]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 9: Công nghệ AI: Phục hồi ảnh nền (LaMa Inpainting)
+// ==========================================
+#slide("Công nghệ AI: Phục hồi ảnh nền (LaMa Inpainting)", [
+  #grid(
+    columns: (1.2fr, 1fr),
+    gutter: 20pt,
+    [
+      *Mạng học sâu LaMa (Large Mask Inpainting):*
+      - Sử dụng các lớp *Fast Fourier Convolution (FFC)* làm cốt lõi.
+      - Cung cấp trường thụ cảm toàn cục (receptive field) ngay từ những lớp mạng đầu tiên.
+      
+      *Hiệu quả phục hồi:*
+      - Xóa chữ cũ và tự động khôi phục cấu trúc lưới bóng (screentone) và họa tiết nền tự nhiên mà không bị nhòe mờ.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/clean (1).jpg", width: 95%)
+        #v(-5pt)
+        #text(size: 10pt, style: "italic", fill: rgb("#64748b"))[Ảnh trang truyện đã qua Inpainting]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 10: Dịch thuật ngữ cảnh với Gemini LLM
 // ==========================================
 #slide("Dịch thuật ngữ cảnh với Gemini LLM", [
   #grid(
@@ -229,30 +358,16 @@
     ],
     [
       #align(center + horizon)[
-        #block(fill: card-bg, inset: 15pt, radius: 8pt, stroke: 1.5pt + card-border)[
-          #text(weight: "bold", fill: accent-blue)[Đóng gói JSON Output]
-          #v(8pt)
-          #set text(size: 15pt, font: "Cascadia Code", fill: text-color)
-          ```json
-          {
-            "page_id": "p001",
-            "bubbles": [
-              {
-                "id": 1,
-                "full_translation": "Cậu đang làm gì thế?",
-                "chunk_meanings": [...]
-              }
-            ]
-          }
-          ```
-        ]
+        #image("../images/som_image.jpg", width: 95%)
+        #v(-5pt)
+        #text(size: 11pt, style: "italic", fill: rgb("#64748b"))[Ảnh Set-of-Mark, MAD_STONE © Masaki Hidehisa]
       ]
     ]
   )
 ])
 
 // ==========================================
-// SLIDE 6: Phân tích yêu cầu chức năng (Use Cases)
+// SLIDE 11: Phân tích yêu cầu chức năng (Use Cases)
 // ==========================================
 #slide("Phân tích yêu cầu chức năng", [
   #grid(
@@ -274,7 +389,7 @@
 ])
 
 // ==========================================
-// SLIDE 7: Kiến trúc tổng thể hệ thống (Hybrid SOA)
+// SLIDE 12: Kiến trúc tổng thể hệ thống (Hybrid SOA)
 // ==========================================
 #slide("Kiến trúc tổng thể hệ thống", [
   #align(center + horizon)[
@@ -283,7 +398,7 @@
 ])
 
 // ==========================================
-// SLIDE 8: Giải pháp xử lý bất đồng bộ (RabbitMQ)
+// SLIDE 13: Xử lý bất đồng bộ qua RabbitMQ
 // ==========================================
 #slide("Xử lý bất đồng bộ qua RabbitMQ", [
   #grid(
@@ -305,7 +420,7 @@
 ])
 
 // ==========================================
-// SLIDE 9: Thiết kế CSDL & Polyglot Persistence
+// SLIDE 14: Thiết kế CSDL & Polyglot Persistence
 // ==========================================
 #slide("Thiết kế CSDL & Polyglot Persistence", [
   #grid(
@@ -314,21 +429,21 @@
     [
       *Kiến trúc lưu trữ đa tầng (Polyglot):*
       #v(5pt)
-      - *PostgreSQL*: Lưu dữ liệu nghiệp vụ quan hệ (Users, Comics, Chapters), quản lý hạn mức AI.
-      - *ElasticSearch*: Tìm kiếm mờ (Fuzzy Search) tên truyện đa ngôn ngữ bằng chỉ mục đảo ngược.
+      - *PostgreSQL*: Lưu dữ liệu nghiệp vụ quan hệ (Users, Comics, Chapters).
+      - *ElasticSearch*: Tìm kiếm mờ (Fuzzy Search) tên truyện bằng chỉ mục đảo ngược.
       - *Redis & Caffeine*: Cache phân tán/cục bộ tăng tốc phản hồi API.
       - *MinIO*: Object Storage lưu ảnh sạch và JSON metadata.
     ],
     [
       #align(center + horizon)[
-        #image("../images/ERD_2026-05-20-181355.png", height: 90%)
+        #image("../images/Database-Schema-2026-05-24-120154.png", height: 90%)
       ]
     ]
   )
 ])
 
 // ==========================================
-// SLIDE 10: Thiết kế siêu dữ liệu tách biệt (Metadata)
+// SLIDE 15: Thiết kế cấu trúc JSON Metadata
 // ==========================================
 #slide("Thiết kế cấu trúc JSON Metadata", [
   #v(5pt)
@@ -390,27 +505,7 @@
 ])
 
 // ==========================================
-// SLIDE 11: Chi tiết luồng xử lý AI Pipeline
-// ==========================================
-#slide("Luồng xử lý tại AI Pipeline", [
-  #grid(
-    columns: (1.1fr, 1fr),
-    gutter: 15pt,    
-    [
-      #align(center + horizon)[
-        #image("../images/activity_diagrams/cropped-ai_pipeline.svg", height: 95%)
-      ]
-    ],
-    [
-      #align(center + horizon)[
-        #image("../images/activity_diagrams/cropped-ai_pipeline (1).svg", height: 95%)
-      ]
-    ]
-  )
-])
-
-// ==========================================
-// SLIDE 12: Cài đặt và Triển khai thực tế
+// SLIDE 16: Cài đặt và Triển khai thực tế
 // ==========================================
 #slide("Cài đặt và Triển khai thực tế", [
   #grid(
@@ -427,13 +522,13 @@
       *Backend & AI Service:*
       - *Spring Boot 3.5*: Bảo mật JWT, JPA, Elasticsearch, Redis.
       - *FastAPI*: Lập trình bất đồng bộ, google-genai SDK, aio-pika, ultralytics, simple-lama, paddleocr.
-      - *Docker & Compose*: Đóng gói container đồng bộ toàn hệ thống.
+      - *Docker Compose*: Đóng gói container đồng bộ toàn hệ thống.
     ]
   )
 ])
 
 // ==========================================
-// SLIDE 13: Đảm bảo chất lượng & Kiểm thử
+// SLIDE 17: Kiểm thử & Đảm bảo chất lượng
 // ==========================================
 #slide("Kiểm thử & Đảm bảo chất lượng", [
   #set text(size: 18pt)
@@ -458,7 +553,145 @@
 ])
 
 // ==========================================
-// SLIDE 14: Đánh giá chất lượng
+// SLIDE 18: Demo ứng dụng: Trình xem truyện thông minh
+// ==========================================
+#slide("Demo ứng dụng: Trình xem truyện thông minh", [
+  #grid(
+    columns: (1fr, 1.2fr),
+    gutter: 20pt,
+    [
+      *Tính năng nổi bật:*
+      - Giao diện Comic Viewer tối giản, tập trung trải nghiệm đọc.
+      - Tải ảnh nền sạch (cleaned background) kết hợp render động lớp chữ dịch đè lên.
+      - Pre-load thông minh tăng tốc chuyển trang.
+      - Tự động lưu lịch sử tiến trình đọc.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/comic_viewer.png", height: 85%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Giao diện đọc truyện tranh Next.js]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 19: Demo ứng dụng: Tính năng Tap-to-Translate
+// ==========================================
+#slide("Demo ứng dụng: Tính năng Tap-to-Translate", [
+  #grid(
+    columns: (1.2fr, 1fr),
+    gutter: 20pt,
+    [
+      *Tương tác tra từ vựng:*
+      - Độc giả rê chuột hoặc chạm vào một từ/phân đoạn cụ thể trên trang truyện.
+      - Vùng chữ được chọn sẽ được highlight sáng.
+      - Hệ thống hiển thị pop-up chứa từ gốc, phiên âm Romaji, từ loại và nghĩa dịch chi tiết.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/hover_mad_stone1.png", width: 95%)
+        #v(-5pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Pop-up tra từ vựng trực tiếp khi di chuột]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 20: Demo ứng dụng: Hiển thị bản dịch đầy đủ
+// ==========================================
+#slide("Demo ứng dụng: Hiển thị bản dịch đầy đủ", [
+  #grid(
+    columns: (1fr, 1.2fr),
+    gutter: 20pt,
+    [
+      *Chuyển đổi ngôn ngữ dịch:*
+      - Hỗ trợ chuyển đổi nhanh hiển thị bản dịch tiếng Anh/tiếng Việt đè lên vị trí thoại cũ.
+      - Typesetting căn chỉnh kích thước font chữ, khoảng cách dòng tự động khít với bong bóng thoại gốc.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/ban_dich_full_mad_stone.png", width: 95%)
+        #v(-5pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Trang truyện được hiển thị đè chữ dịch tiếng Việt]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 21: Demo ứng dụng: Tổng quan trang quản trị Admin
+// ==========================================
+#slide("Demo ứng dụng: Tổng quan trang quản trị Admin", [
+  #grid(
+    columns: (1fr, 1.2fr),
+    gutter: 20pt,
+    [
+      *Dashboard điều khiển:*
+      - Admin theo dõi tổng quan hệ thống: Tổng số người dùng, bộ truyện, chương truyện đang phát hành.
+      - Thống kê hạn mức (quota) gọi API dịch AI trong ngày.
+      - Danh sách truyện mới cập nhật và danh mục phân loại.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/admin_overview.png", height: 85%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Giao diện quản trị hệ thống đọc truyện]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 22: Demo ứng dụng: Giao diện đăng truyện mới
+// ==========================================
+#slide("Demo ứng dụng: Giao diện đăng truyện mới", [
+  #grid(
+    columns: (1.2fr, 1fr),
+    gutter: 20pt,
+    [
+      *Giao diện đăng tác phẩm:*
+      - Nhập các siêu dữ liệu cấu trúc: Tên truyện, tác giả, thể loại, ngôn ngữ gốc (Nhật, Hàn, Trung).
+      - Tải lên ảnh bìa đại diện cho bộ truyện.
+      - Tích hợp tìm kiếm phân loại và đồng bộ chỉ mục Elasticsearch.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/dang_truyen_moi.png", height: 85%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Giao diện nhập thông tin và đăng tác phẩm mới]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 23: Demo ứng dụng: Đăng chương mới & Kích hoạt AI
+// ==========================================
+#slide("Demo ứng dụng: Đăng chương mới & Kích hoạt AI", [
+  #grid(
+    columns: (1fr, 1.2fr),
+    gutter: 20pt,
+    [
+      *Tải lên chương và chạy Pipeline:*
+      - Admin nhập số chương, tiêu đề chương và kéo thả danh sách file ảnh truyện gốc.
+      - Khi bấm *Bắt đầu xử lý*, Spring Boot nhận ảnh, đẩy payload lên RabbitMQ và trả về trạng thái "Đang xử lý".
+      - FastAPI AI Worker xử lý ngầm, cập nhật kết quả qua Webhook.
+    ],
+    [
+      #align(center + horizon)[
+        #image("../images/dang_chuong_moi.png", height: 85%)
+        #v(-4pt)
+        #text(size: 10pt, fill: rgb("#64748b"))[Giao diện đăng tải chương truyện và kích hoạt AI]
+      ]
+    ]
+  )
+])
+
+// ==========================================
+// SLIDE 24: Đánh giá chất lượng
 // ==========================================
 #slide("Đánh giá chất lượng", [
   #set text(size: 18pt)
@@ -466,7 +699,7 @@
     columns: (1.2fr, 1fr),
     gutter: 15pt,
     [
-      *Đo lường định lượng:*
+      *Đo lường định lượng: (CPU i7-12700K, 16GB RAM)*
       - *Thời gian xử lý*: \~16.22s/trang (gồm dịch Gemini API 5-9s, còn lại OCR/Inpaint CPU cục bộ).
       - *Tỷ lệ lỗi ký tự (CER)*: MangaOcr \~6-10%, PaddleOCR \~5-8%.
       
@@ -476,16 +709,16 @@
     ],
     [
       #align(center + horizon)[
-        #image("../images/pipeline_text_blocks.png", width: 95%)
+        #image("../images/clean (1).jpg", width: 95%)
         #v(-5pt)
-        #text(size: 11pt, style: "italic", fill: rgb("#64748b"))[Ảnh gỡ lỗi nhận diện hộp thoại (Arisa © Yagami Ken)]
+        #text(size: 11pt, style: "italic", fill: rgb("#64748b"))[Ảnh trang truyện đã qua Inpainting, MAD_STONE © Masaki Hidehisa]
       ]
     ]
   )
 ])
 
 // ==========================================
-// SLIDE 15: Kết luận & Hướng phát triển tương lai
+// SLIDE 25: Kết luận & Hướng phát triển tương lai
 // ==========================================
 #slide("Kết luận & Hướng phát triển", [
   #text(size: 17pt)[
@@ -495,7 +728,7 @@
       [
         *Kết quả đạt được:*
         #list(
-          [Hoàn thiện hệ thống (Next.js, Spring Boot, FastAPI) & *AI Pipeline* bất đồng bộ.],
+          [Hoàn thiện hệ thống *ứng dụng đọc truyện tranh* & *AI Pipeline* bất đồng bộ.],
           [Tách biệt dữ liệu ảnh/chữ; hỗ trợ tra từ trực tiếp (*Tap-to-Translate*).],
           [Quy trình test độ tin cậy cao (JUnit 5, JaCoCo, PiTest, pytest).]
         )
@@ -518,3 +751,5 @@
     )
   ]
 ])
+
+
